@@ -9,21 +9,29 @@ import UIKit
 
 class SignInViewController: UIViewController {
 
+    @IBOutlet weak var text1: UILabel!
+    @IBOutlet weak var text2: UILabel!
+    @IBOutlet weak var signInBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        initUI()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func initUI() {
+        text1.font = UIFont.h3()
+        text2.font = UIFont.body2()
+        let image = UIImage(named: "logo_kakao")?.imageWith(newSize: .init(width: 30, height: 30))
+        signInBtn.setImage(image, for: .normal)
+        signInBtn.configuration?.imagePadding = 20
     }
-    */
+}
 
+extension UIImage {
+    func imageWith(newSize: CGSize) -> UIImage {
+        let image = UIGraphicsImageRenderer(size: newSize).image { _ in
+            draw(in: CGRect(origin: .zero, size: newSize))
+        }
+        return image.withRenderingMode(renderingMode)
+    }
 }

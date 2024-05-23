@@ -2,6 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>WantedSans-Black.ttf</string>
+		<string>WantedSans-ExtraBlack.ttf</string>
+		<string>WantedSans-ExtraBold.ttf</string>
+		<string>WantedSans-Medium.ttf</string>
+		<string>WantedSans-Regular.ttf</string>
+		<string>WantedSans-SemiBold.ttf</string>
+		<string>WantedSans-Bold.ttf</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakao1901929c12aad3417930d1bad00fa4db</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
