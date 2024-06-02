@@ -13,7 +13,7 @@ struct CustomColor {
     //fix
     struct Category{
         static let health = "#54ADFF" //blue
-        static let reading = "#FFBA58"//pink
+        static let reading = "#CF80FF"//pink
         static let develop = "#FFBA58"//yellow
     }
     

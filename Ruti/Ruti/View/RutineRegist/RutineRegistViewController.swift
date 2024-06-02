@@ -33,53 +33,7 @@ class RutineRegistViewController: UIViewController {
         let healthTitle = "건강 지키는, 운동"
         let rTitle = "마음의 양식, 독서"
         let dTitle = "끝 없는, 자기계발"
-        
-//        //btn font
-//        let btnfont = UIFont.h3()
-//        let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: btnfont]
-//        let attributedText = NSAttributedString(string: healthTitle, attributes: attributes)
-//        healthBtn.setAttributedTitle(attributedText, for: .normal)
-//        
-//        let attributedText2 = NSAttributedString(string: rTitle, attributes: attributes)
-//        readingBtn.setAttributedTitle(attributedText2, for: .normal)
-//        
-//        let attributedText3 = NSAttributedString(string: dTitle, attributes: attributes)
-//        developBtn.setAttributedTitle(attributedText3, for: .normal)
-//        
-//        healthBtn.layer.cornerRadius = 10
-//        readingBtn.layer.cornerRadius = 10
-//        developBtn.layer.cornerRadius = 10
-//        
-//        //            .setTitleColor(.black, for: .selected)
-//        healthBtn.setBackgroundColor(UIColor.blue, for: .selected)
-//        
-//        readingBtn.setBackgroundColor(UIColor.blue, for: .selected)
-//        //        config.background.strokeColor = UIColor.red
-//        //        config.background.strokeWidth = 3
-//        
-//        let config = UIButton.Configuration.filled()
-//        
-//        let handler: UIButton.ConfigurationUpdateHandler = { button in
-//            switch button.state {
-//            case [.selected, .highlighted]:
-//                button.configuration?.baseBackgroundColor = UIColor.blue
-//            case .selected:
-//                button.configuration?.title = "Selected"
-//            case .highlighted:
-//                button.configuration?.baseBackgroundColor = UIColor.blue
-//                button.configuration?.title = "Highlighted"
-//            case .disabled:
-//                button.configuration?.title = "Disabled"
-//            default:
-//                button.configuration?.title = "Normal"
-//                button.configuration?.baseBackgroundColor = UIColor.black
-//            }
-//        }
-//        
-//        healthBtn.configuration = config
-//        healthBtn.configurationUpdateHandler = handler
-//        
-        
+
     }
 }
 
@@ -124,10 +78,36 @@ extension RutineRegistViewController: UITableViewDataSource, UITableViewDelegate
         cell.categoryTitle.text = categoryList[indexPath.row]
         cell.categoryTitle.font = UIFont.h4()
         cell.categoryTitle.textColor = UIColor.init(hexCode: "#FAFAFA")
-
+        
+        cell.categoryImg?.translatesAutoresizingMaskIntoConstraints = false
+        cell.categoryImg?.contentMode = .scaleAspectFill
+        cell.categoryImg?.clipsToBounds = true
+        
+//        cell.imageView?.layer.masksToBounds = true
+        if indexPath.row == 0 {
+            let resizedImage = UIImage(named: "il_health")
+//            let resizedImage = resizeImage(image: (UIImage(named: "il_health") as? UIImage)! , newWidth: 100)
+            cell.categoryImg?.image = resizedImage
+            cell.categoryImg?.contentMode = .scaleAspectFill
+            cell.categoryImg?.clipsToBounds = true
+        }else if indexPath.row == 1 {
+            cell.categoryImg?.image = UIImage(named: "il_reading")
+        }else if indexPath.row == 2 {
+            cell.categoryImg?.image = UIImage(named: "il_develop")
+        }
+        
         return cell
     }
     
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / image.size.width // 새 이미지 확대/축소 비율
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+        image.draw(in: CGRectMake(0, 0, 100, 100))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categoryList.count
     }

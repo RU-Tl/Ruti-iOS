@@ -118,7 +118,7 @@ extension UIFont {
     }
     
     class func h4() -> UIFont {
-        return UIFont(name: wantedFontName.SemiBold.rawValue, size: 28)!
+        return UIFont(name: wantedFontName.SemiBold.rawValue, size: 20)!
     }
     
     class func subTitle() -> UIFont {
@@ -143,5 +143,9 @@ extension UIFont {
     
     class func caption1() -> UIFont {
         return UIFont(name: wantedFontName.Regular.rawValue, size: 14)!
+    }
+    
+    class func weekly() -> UIFont {
+        return UIFont(name: wantedFontName.SemiBold.rawValue, size: 18)!
     }
 }
