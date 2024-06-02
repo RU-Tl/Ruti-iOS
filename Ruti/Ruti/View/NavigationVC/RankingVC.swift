@@ -12,7 +12,7 @@ import SnapKit
 class RankingVC: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
     
     let category = ["운동 랭킹 TOP 10", "독서 랭킹 TOP 10", "자기계발 랭킹 TOP 10"]
-
+    
     @IBOutlet weak var title1: UILabel!
     @IBOutlet weak var title2: UILabel!
     
@@ -20,11 +20,11 @@ class RankingVC: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
         didSet{
             self.pagerView.register(MainPagerViewCell.self, forCellWithReuseIdentifier: MainPagerViewCell.description())
             
-//            self.pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
+            //            self.pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
             //아이템 크기 설정
-//            self.myPagerView.itemSize = FSPagerView.automaticSize
+            //            self.myPagerView.itemSize = FSPagerView.automaticSize
             //무한스크롤 설정
-//            self.myPagerView.isInfinite = true
+            //            self.myPagerView.isInfinite = true
         }
     }
     
@@ -38,12 +38,12 @@ class RankingVC: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
         title1.textColor = UIColor.init(hexCode: "#FAFAFA")
         title2.textColor = UIColor.init(hexCode: "#FAFAFA")
         
-        self.title1.text = "이용님, 이번 달 카테고리별로"
+        self.title1.text = "규빈님, 이번 달 카테고리별로"
         guard let text = self.title1.text else { return }
         let attributeString = NSMutableAttributedString(string: text)
         attributeString.addAttribute(.foregroundColor, value: UIColor.init(hexCode: "#CF80FF"), range: (text as NSString).range(of: "카테고리"))
         self.title1.attributedText = attributeString
-
+        
         settingPagerView()
         
     }
@@ -56,7 +56,29 @@ class RankingVC: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
     // 셀 설정
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         guard let cell = pagerView.dequeueReusableCell(withReuseIdentifier: MainPagerViewCell.description(), at: index) as? MainPagerViewCell else { return FSPagerViewCell() }
-        cell.designCell("독서 랭킹 TOP 10")
+        
+        if index == 0{
+            cell.num = 5
+            cell.nicknameList = ["안이연", "유일선","김지호","김영한","이연","규빈","박주희","박건우","박성우","안지용"]
+            cell.countList = ["360", "324","311","298","278","264","250","211","111","90"]
+            cell.cellColor = UIColor.init(hexCode: "#54ADFF")
+            cell.designCell(category[index])
+            
+        }else if index == 1 {
+            cell.num = 2
+            cell.nicknameList = ["조화진", "차은우", "규빈","한소현","안지용","김지호","박지호","원빈","김동현","안지용"]
+            cell.countList = ["323", "320","311","280","228","211","198","140","132","95"]
+            cell.cellColor = UIColor.init(hexCode: "#CF80FF")
+            cell.designCell(category[index])
+            
+        }else if index == 2{
+            cell.num = 4
+            cell.nicknameList = ["김지호", "박지호","안지용","한소현","규빈","홍길동","김동현","황영호","안지용","박하현"]
+            cell.countList = ["281", "274","231","201","190","110","99","50","45","30"]
+            cell.cellColor = UIColor.init(hexCode: "#FFBA58")
+            cell.designCell(category[index])
+        }
+
         return cell
     }
     
@@ -65,19 +87,26 @@ class RankingVC: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
         return false
     }
     
-    // 다음 아이템으로 넘어갔을 때
+    // 다음 아이템으로 넘어갔을  때
     func pagerViewDidEndDecelerating(_ pagerView: FSPagerView) {
-//        self.title1.text = "이용님, 이번 달 카테고리별로"
-//        guard let text = self.title1.text else { return }
-//        let attributeString = NSMutableAttributedString(string: text)
-//        attributeString.addAttribute(.foregroundColor, value: UIColor.init(hexCode: "#CF80FF"), range: (text as NSString).range(of: "카테고리"))
-//        self.title1.attributedText = attributeString
+//        if let cell = pagerView.cellForItem(at: pagerView.currentIndex) as? MainPagerViewCell {
+//            cell.num = 4
+//            cell.nicknameList = ["박하현", "황영호","홍길동","한소현","이규빈","김지호","박지호","조화진","김동현","안지용"]
+//            cell.countList = ["323", "320","311","280","228","211","198","140","132","95"]
+//            cell.rankTableView.reloadData()
+//        }
+    
+        //        self.title1.text = "이용님, 이번 달 카테고리별로"
+        //        guard let text = self.title1.text else { return }
+        //        let attributeString = NSMutableAttributedString(string: text)
+        //        attributeString.addAttribute(.foregroundColor, value: UIColor.init(hexCode: "#CF80FF"), range: (text as NSString).range(of: "카테고리"))
+        //        self.title1.attributedText = attributeString
     }
-
+    
     func settingPagerView() {
         pagerView.register(MainPagerViewCell.self, forCellWithReuseIdentifier: MainPagerViewCell.description())
         pagerView.transformer = FSPagerViewTransformer(type: .linear)
-
+        
         let bounds = UIScreen.main.bounds
         pagerView.itemSize = CGSize(
             width: self.pagerView.frame.width * 0.80,
@@ -88,54 +117,8 @@ class RankingVC: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
 }
 
 class MainPagerViewCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSource {
-    let numberList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-    let nicknameList = ["이용", "이용","이용","이용","이용","이용","이용","이용","이용","이용"]
-    let countList = ["111", "111","111","111","111","111","111","111","111","111"]
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 35
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RankingTableCell", for: indexPath) as! RankingTableCell
-        
-        cell.numberLabel.font = UIFont.caption1()
-        cell.nicknameLabel.font = UIFont.caption1()
-        cell.countLabel.font = UIFont.caption1()
-        
-        cell.numberLabel.text = numberList[indexPath.row]
-        cell.nicknameLabel.text = nicknameList[indexPath.row]
-        cell.countLabel.text = countList[indexPath.row]
-        
-        if indexPath.row%2 == 0{
-            cell.contentView.backgroundColor = UIColor.init(hexCode: "#333333")
-        }else{
-            cell.contentView.backgroundColor = UIColor.init(hexCode: "#3E3E3E")
-        }
-        
-        if indexPath.row == 3{
-            //자기 랭킹
-            cell.numberLabel.textColor = UIColor.init(hexCode: "#333333")
-            cell.nicknameLabel.textColor = UIColor.init(hexCode: "#333333")
-            cell.countLabel.textColor = UIColor.init(hexCode: "#333333")
-            cell.numberLabel.font = UIFont.body4()
-            cell.nicknameLabel.font = UIFont.body4()
-            cell.countLabel.font = UIFont.body4()
-            //독서
-            cell.contentView.backgroundColor = UIColor.init(hexCode: "#CF80FF")
-//            cell.contentView.layer.cornerRadius = 5
-        }else{
-            cell.numberLabel.textColor = UIColor.init(hexCode: "#FAFAFA")
-            cell.nicknameLabel.textColor = UIColor.init(hexCode: "#FAFAFA")
-            cell.countLabel.textColor = UIColor.init(hexCode: "#FAFAFA")
-        }
-        
-        return cell
-    }
+    var num: Int?
+    var cellColor: UIColor?
     
     let titleLabel: UILabel = {
         let labele = UILabel()
@@ -144,31 +127,13 @@ class MainPagerViewCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSo
         return labele
     }()
     
-    private let rankTableView: UITableView = {
+    let rankTableView: UITableView = {
         let tableview = UITableView()
         tableview.backgroundColor = UIColor.init(hexCode: "#3E3E3E")
         tableview.layer.cornerRadius = 5
         return tableview
     }()
-    
-    private let label: UILabel = {
-        let label = UILabel()
-//        label.text = "상어상어"
-//        label.textColor = UIColor.gray
-        return label
 
-    }()
-    
-    override func prepareForReuse() {
-        // 기본 imageView를 언제든지 커스텀 상태로 유지시킨다
-//        self.imageView?.contentMode = .scaleAspectFit
-//        self.imageView?.snp.makeConstraints { make in
-//            make.top.horizontalEdges.equalTo(self).inset(12)
-//            make.height.equalTo(imageView!.snp.width)
-//        }
-    }
-
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.init(hexCode: "#3E3E3E")
@@ -201,27 +166,77 @@ class MainPagerViewCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSo
     }
     
     func designCell(_ sender: String) {
-
         titleLabel.text = sender
-//        artistLabel.text = sender.artist
-//        
-//        recordLabel.text = (sender.count > 1) ? "\(sender.count) records" : "\(sender.count) record"
-//        
-//        // ( 두 번째 인덱스 제외 ("음악") )
-//        for (index, item) in [genre1Label, genre2Label, genre3Label].enumerated() {
-//            item.isHidden = false
-//            
-//            var genreIdx = index
-//            if index >= 1 {
-//                genreIdx = index + 1
-//            }
-//            
-//            if genreIdx <= sender.genres.count - 1 {
-//                item.text = sender.genres[genreIdx]
-//            } else {
-//                item.isHidden = true
-//            }
-//        }
+//        num = 3
     }
+    
+//        let numberList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+//        let nicknameList = ["이용", "이용","이용","이용","이용","이용","이용","이용","이용","이용"]
+//        let countList = ["111", "111","111","111","111","111","111","111","111","111"]
+    //
+    var numberList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    var nicknameList = ["김지호", "박지호","이규빈","한소현","조화진","홍길동","김동현","황영호","안지용","박하현"]
+    var countList = ["360", "324","311","298","278","264","250","211","111","90"]
+    
+//    let date1 = [["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+//                 ["김지호", "박지호","이규빈","한소현","조화진","홍길동","김동현","황영호","안지용","박하현"],
+//                 ["360", "324","311","298","278","264","250","211","111","90"]]
+    
+    
+    //    let numberList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    //    let nicknameList = ["박하현", "황영호","홍길동","한소현","이규빈","김지호","박지호","조화진,"김동현","안지용"]
+    //    let countList = ["323", "320","311","280","228","211","198","140","132","95"]
+    //
+    //    let numberList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    //    let nicknameList = ["안이연", "유일선","김지호","김영한","이규빈","동방환","박주희","박건우","박성우","안지용"]
+    //    let countList = ["281", "274","231","201","190","110","99","50","45","30"]
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 35
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RankingTableCell", for: indexPath) as! RankingTableCell
+        
+        cell.numberLabel.font = UIFont.caption1()
+        cell.nicknameLabel.font = UIFont.caption1()
+        cell.countLabel.font = UIFont.caption1()
+        
+        cell.numberLabel.text = numberList[indexPath.row]
+        cell.nicknameLabel.text = nicknameList[indexPath.row]
+        cell.countLabel.text = countList[indexPath.row]
+        
+        if indexPath.row%2 == 0{
+            cell.contentView.backgroundColor = UIColor.init(hexCode: "#333333")
+        }else{
+            cell.contentView.backgroundColor = UIColor.init(hexCode: "#3E3E3E")
+        }
+        
+        if indexPath.row == num{
+            //자기 랭킹
+            cell.numberLabel.textColor = UIColor.init(hexCode: "#333333")
+            cell.nicknameLabel.textColor = UIColor.init(hexCode: "#333333")
+            cell.countLabel.textColor = UIColor.init(hexCode: "#333333")
+            cell.numberLabel.font = UIFont.body4()
+            cell.nicknameLabel.font = UIFont.body4()
+            cell.countLabel.font = UIFont.body4()
+            //독서
+            cell.contentView.backgroundColor = cellColor
+            //추후 적용
+            //            cell.contentView.layer.cornerRadius = 5
+        }else{
+            cell.numberLabel.textColor = UIColor.init(hexCode: "#FAFAFA")
+            cell.nicknameLabel.textColor = UIColor.init(hexCode: "#FAFAFA")
+            cell.countLabel.textColor = UIColor.init(hexCode: "#FAFAFA")
+        }
+        
+
+        return cell
+    }
+    
 }
 

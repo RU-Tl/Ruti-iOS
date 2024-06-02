@@ -23,7 +23,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zfw-kx-emU">
-                        <rect key="frame" x="101.33333333333331" y="11.666666666666664" width="80" height="21"/>
+                        <rect key="frame" x="98.333333333333314" y="11.666666666666664" width="80" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="bzV-Wc-vMf"/>
                         </constraints>
@@ -32,12 +32,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Cz-pE-tkc">
-                        <rect key="frame" x="258" y="11.666666666666664" width="42" height="21"/>
+                        <rect key="frame" x="255" y="11.666666666666664" width="45" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="xq5-OS-VT4"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="7Cz-pE-tkc" firstAttribute="leading" secondItem="Zfw-kx-emU" secondAttribute="trailing" constant="76.670000000000002" id="0kv-uU-lwf"/>
                     <constraint firstItem="J5j-XQ-anV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="8Pz-v3-4fK"/>
