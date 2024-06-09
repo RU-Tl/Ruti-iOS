@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 첫 화면
 struct RoutineData {
     let category: Int
     let title: String
@@ -28,6 +29,7 @@ class RoutineVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initUI()
         let nib = UINib(nibName: "RoutineCell", bundle: nil)
         routineTable.register(nib, forCellReuseIdentifier: "RoutineCell")
@@ -76,6 +78,27 @@ class RoutineVC: UIViewController {
     }
     
     func initUI() {
+
+        let request = APIRequest(method: .get,
+                                 path: "/routine/\(UserInfo.memberId)/2024-05-24",
+                                 param: nil,
+                                 headers: APIConfig.authHeaders)
+        
+        APIService.shared.perform(request: request,
+                                  completion: { [self] (result) in
+            switch result {
+            case .success(let data):
+                if let data = data.body["data"] as? [[String:Any]] {
+                    for list in data {
+                        print(list["routineCategories"])
+                    }
+                }
+                //push 추가
+                
+            case .failure:
+                print(APIError.networkFailed)
+            }
+        })
         plusBtn.backgroundColor = .clear
         plusBtn.layer.borderWidth = 1
         plusBtn.layer.borderColor = UIColor.init(hexCode: "#54ADFF").cgColor
@@ -85,6 +108,8 @@ class RoutineVC: UIViewController {
         title1.font = UIFont.h2()
         title2.font = UIFont.h2()
         title3.font = UIFont.h2()
+        
+        title1.text = "\(UserInfo.name)님, 반가워요"
         title1.textColor = UIColor.init(hexCode: "#FAFAFA")
         title2.textColor = UIColor.init(hexCode: "#54ADFF")
         title3.textColor = UIColor.init(hexCode: "#FAFAFA")
