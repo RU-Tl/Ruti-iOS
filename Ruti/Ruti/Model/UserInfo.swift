@@ -8,13 +8,13 @@
 import Foundation
 
 struct UserInfo {
-    static var memberId: String = String(UserDefaults.standard.integer(forKey: "memberId"))
+    static var memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
     static var email: String = UserDefaults.standard.string(forKey: "email") ?? ""
     static var name: String = UserDefaults.standard.string(forKey: "name") ?? ""
     static var token: String = String(UserDefaults.standard.string(forKey: "token") ?? "")
     
     init() {
-        UserInfo.memberId = ""
+        UserInfo.memberId = 0
         UserInfo.email = ""
         UserInfo.name = ""
         UserInfo.token = ""

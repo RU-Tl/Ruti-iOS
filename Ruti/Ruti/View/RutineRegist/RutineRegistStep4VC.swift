@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import Alamofire
 
 class RutineRegistStep4VC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        2
+        7
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -38,7 +39,12 @@ class RutineRegistStep4VC: UIViewController, UICollectionViewDataSource, UIColle
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self
         tagCollectionView.register(TagCell.self, forCellWithReuseIdentifier: TagCell.identifier)
+        tagCollectionView.allowsMultipleSelection = true
         initUI()
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .white  // 색상 변경
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     private lazy var tagCollectionView: UICollectionView = {
@@ -55,6 +61,37 @@ class RutineRegistStep4VC: UIViewController, UICollectionViewDataSource, UIColle
     
     @IBAction func dateAction(_ sender: Any) {
         changed()
+    }
+
+    @IBAction func rutineRegistAction(_ sender: Any) {
+        let parameter: Parameters = [
+                   "categories" : "EXERCISE",
+                  "content" : "아침 조깅",
+                  "startDate" : "2024-05-24",
+                   "endDate" : "2024-05-31",
+                   "alarmTime" : "AM 7:20"
+        ]
+        
+        let request = APIRequest(method: .post,
+                                 path: "/routine/\(UserInfo.memberId)",
+                                 param: parameter,
+                                 headers: APIConfig.authHeaders)
+        
+        APIService.shared.perform(request: request,
+                                  completion: { [self] (result) in
+            switch result {
+            case .success(let data):
+                if let data = data.body["data"] as? [String:Any]{
+                    if let routineId = data["routineId"] as? Int{
+                        print(routineId)
+                    }
+                }
+                //push 추가
+                
+            case .failure:
+                print(APIError.networkFailed)
+            }
+        })
     }
     
     // 시간 출력
@@ -82,7 +119,7 @@ class RutineRegistStep4VC: UIViewController, UICollectionViewDataSource, UIColle
         NSLayoutConstraint.activate([
             tagCollectionView.leadingAnchor.constraint(equalTo: view1.leadingAnchor),
             tagCollectionView.trailingAnchor.constraint(equalTo: view1.trailingAnchor),
-            tagCollectionView.topAnchor.constraint(equalTo: view1.safeAreaLayoutGuide.bottomAnchor),
+            tagCollectionView.topAnchor.constraint(equalTo: view1.safeAreaLayoutGuide.topAnchor),
             tagCollectionView.bottomAnchor.constraint(equalTo: view1.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -105,8 +142,8 @@ extension RutineRegistStep4VC: UICollectionViewDelegateFlowLayout {
         let size = label.frame.size
        
         if collectionView == tagCollectionView {
-            return CGSize(width:  15, height: 20)
-//            return CGSize(width: size.width + 15, height: 20)
+//            return CGSize(width:  15, height: 20)
+            return CGSize(width: 40, height: 40)
         }
         return CGSize()
     }
