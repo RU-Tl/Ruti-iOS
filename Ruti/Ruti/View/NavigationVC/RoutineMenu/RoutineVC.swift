@@ -15,9 +15,14 @@ struct RoutineData {
 }
 
 class RoutineVC: UIViewController {
-    let dayList = ["20 월", "21 화", "22 수", "23 목", "24 금", "25 토","26 일"]
     var routineData = [RoutineData]()
+    var dayStringList = [String]()
+    var dayDateList = [Date]()
     
+    @IBOutlet weak var emptytitle3: UILabel!
+    @IBOutlet weak var emptytitle2: UILabel!
+    @IBOutlet weak var emptytitle1: UILabel!
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var title2: UILabel!
     @IBOutlet weak var title1: UILabel!
     @IBOutlet weak var title3: UILabel!
@@ -27,10 +32,17 @@ class RoutineVC: UIViewController {
     
     @IBOutlet weak var plusBtn: UIButton!
     
+    var selectedDay = Date()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        dayStringList = weekList()
+
         initUI()
+        routineTable.isHidden = true
+        
+        
+        
         let nib = UINib(nibName: "RoutineCell", bundle: nil)
         routineTable.register(nib, forCellReuseIdentifier: "RoutineCell")
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -38,6 +50,39 @@ class RoutineVC: UIViewController {
         //        routineData.append(RoutineData(category: 2, title: "취침 전 책 읽기", time: "PM 12:30"))
         NotificationCenter.default.addObserver(self, selector: #selector(showPage(_:)), name: NSNotification.Name("noti"), object: nil)
     }
+    
+    func weekList() -> [String] {
+        var tmpDayStringList = [String]()
+        var tmpDayDateList = [Date]()
+        var formatter = DateFormatter()
+        formatter.dateFormat = "dd E"
+        formatter.locale = Locale(identifier:"ko_KR")
+        
+        let today = Date()
+        tmpDayDateList.append(today)
+        var date_string1 = formatter.string(from: today)
+        tmpDayStringList.append(date_string1)
+        
+        for i in 1...6 {
+            let beforeDay = Calendar.current.date(byAdding: .day, value: -i, to: today)
+            var date_string2 = formatter.string(from: beforeDay!)
+            
+            tmpDayDateList.append(beforeDay!)
+            tmpDayStringList.append(date_string2)
+        }
+        
+        dayDateList = tmpDayDateList.sorted(by: <)
+        return tmpDayStringList.sorted(by: <)
+    }
+    
+    func dateToString(day: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy-MM-dd"
+        let str = formatter.string(from: day)
+        return str
+    }
+
     
     @objc func showPage(_ notification:Notification) {
         //push
@@ -77,10 +122,9 @@ class RoutineVC: UIViewController {
      
     }
     
-    func initUI() {
-
+    func getDayRoutine(day: String) {
         let request = APIRequest(method: .get,
-                                 path: "/routine/\(UserInfo.memberId)/2024-05-24",
+                                 path: "/routine/\(UserInfo.memberId)/\(day)",
                                  param: nil,
                                  headers: APIConfig.authHeaders)
         
@@ -93,12 +137,13 @@ class RoutineVC: UIViewController {
                         print(list["routineCategories"])
                     }
                 }
-                //push 추가
-                
             case .failure:
                 print(APIError.networkFailed)
             }
         })
+    }
+    
+    func initUI() {
         plusBtn.backgroundColor = .clear
         plusBtn.layer.borderWidth = 1
         plusBtn.layer.borderColor = UIColor.init(hexCode: "#54ADFF").cgColor
@@ -113,8 +158,16 @@ class RoutineVC: UIViewController {
         title1.textColor = UIColor.init(hexCode: "#FAFAFA")
         title2.textColor = UIColor.init(hexCode: "#54ADFF")
         title3.textColor = UIColor.init(hexCode: "#FAFAFA")
+        
+        emptytitle1.font = UIFont.h4()
+        emptytitle1.textColor = UIColor.init(hexCode: "#9E9E9E")
+        emptytitle2.font = UIFont.body1()
+        emptytitle2.textColor = UIColor.init(hexCode: "#9E9E9E")
+        emptytitle3.font = UIFont.body1()
+        emptytitle3.textColor = UIColor.init(hexCode: "#9E9E9E")
     }
 }
+
 extension RoutineVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -126,20 +179,26 @@ extension RoutineVC: UICollectionViewDataSource, UICollectionViewDelegate {
             return UICollectionViewCell()
         }
         
-        cell.dayLabel.text = dayList[indexPath.row]
+        cell.dayLabel.text = dayStringList[indexPath.row]
         cell.dayLabel.font = UIFont.body4()
-        cell.dayLabel.textColor = UIColor.init(hexCode: "#9E9E9E")
-        cell.topLineView.isHidden = true
+
         if indexPath.row == 6 {
-            cell.dayLabel.textColor = UIColor.init(hexCode: "#B5DCFF")
-            cell.topLineView.isHidden = false
+            collectionView.selectItem(at: indexPath, animated: false , scrollPosition: .init())
+            cell.isSelected = true
+        }else{
+            cell.isSelected = false
         }
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedDay = dayDateList[indexPath.row]
+        getDayRoutine(day: dateToString(day: selectedDay))
+        
         if indexPath.row == 0 {
             self.routineTable.reloadData()
+            
         }
         
     }
