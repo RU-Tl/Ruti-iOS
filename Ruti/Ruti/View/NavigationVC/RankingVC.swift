@@ -8,10 +8,14 @@
 import UIKit
 import FSPagerView
 import SnapKit
+import Alamofire
 
 class RankingVC: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
     
     let category = ["운동 랭킹 TOP 10", "독서 랭킹 TOP 10", "자기계발 랭킹 TOP 10"]
+    var exerciseRank = [String]()
+    var readingRank = [String]()
+    var developmentRank = [String]()
     
     @IBOutlet weak var title1: UILabel!
     @IBOutlet weak var title2: UILabel!
@@ -30,6 +34,33 @@ class RankingVC: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        //READING
+        //DEVELOPMENT
+        let parameter: Parameters = [
+            "memberId" : UserInfo.memberId,
+            "routineCate" : "EXERCISE"
+        ]
+        
+        let request = APIRequest(method: .get,
+                                 path: "/routine/ranking/list",
+                                 param: parameter,
+                                 headers: APIConfig.authHeaders)
+        
+        APIService.shared.perform(request: request,
+                                  completion: { [self] (result) in
+            switch result {
+            case .success(let data):
+                if let data = data.body["data"] as? [[String:Any]] {
+                    for list in data {
+                        exerciseRank.append(list["nickname"] as! String)
+                    }
+                }
+            case .failure:
+                print(APIError.networkFailed)
+            }
+        })
+        
         self.pagerView.dataSource = self
         self.pagerView.delegate = self
         
@@ -38,7 +69,7 @@ class RankingVC: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
         title1.textColor = UIColor.init(hexCode: "#FAFAFA")
         title2.textColor = UIColor.init(hexCode: "#FAFAFA")
         
-        self.title1.text = "규빈님, 이번 달 카테고리별로"
+        self.title1.text = "\(UserInfo.name)님, 이번 달 카테고리별로"
         guard let text = self.title1.text else { return }
         let attributeString = NSMutableAttributedString(string: text)
         attributeString.addAttribute(.foregroundColor, value: UIColor.init(hexCode: "#CF80FF"), range: (text as NSString).range(of: "카테고리"))
@@ -167,30 +198,13 @@ class MainPagerViewCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSo
     
     func designCell(_ sender: String) {
         titleLabel.text = sender
-//        num = 3
     }
     
-//        let numberList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-//        let nicknameList = ["이용", "이용","이용","이용","이용","이용","이용","이용","이용","이용"]
-//        let countList = ["111", "111","111","111","111","111","111","111","111","111"]
-    //
+
     var numberList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
     var nicknameList = ["김지호", "박지호","이규빈","한소현","조화진","홍길동","김동현","황영호","안지용","박하현"]
     var countList = ["360", "324","311","298","278","264","250","211","111","90"]
-    
-//    let date1 = [["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-//                 ["김지호", "박지호","이규빈","한소현","조화진","홍길동","김동현","황영호","안지용","박하현"],
-//                 ["360", "324","311","298","278","264","250","211","111","90"]]
-    
-    
-    //    let numberList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-    //    let nicknameList = ["박하현", "황영호","홍길동","한소현","이규빈","김지호","박지호","조화진,"김동현","안지용"]
-    //    let countList = ["323", "320","311","280","228","211","198","140","132","95"]
-    //
-    //    let numberList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-    //    let nicknameList = ["안이연", "유일선","김지호","김영한","이규빈","동방환","박주희","박건우","박성우","안지용"]
-    //    let countList = ["281", "274","231","201","190","110","99","50","45","30"]
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 35
     }
