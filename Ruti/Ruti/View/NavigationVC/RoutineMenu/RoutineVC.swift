@@ -14,17 +14,28 @@ struct RoutineData {
     let time: String
 }
 
+struct Routine {
+    let routineCategories: String
+    let routineContent: String
+    let routineAlarmTime: String
+    let routineStatus: String
+    let routineId: Int
+}
+
 class RoutineVC: UIViewController {
-    var routineData = [RoutineData]()
+    var routineData2 = [RoutineData]()
+    var routineDataList = [Routine]()
     var dayStringList = [String]()
     var dayDateList = [Date]()
+//    var dayRutine: Routine?
     
-    @IBOutlet weak var emptytitle3: UILabel!
-    @IBOutlet weak var emptytitle2: UILabel!
     @IBOutlet weak var emptytitle1: UILabel!
+    @IBOutlet weak var emptytitle2: UILabel!
+    @IBOutlet weak var emptytitle3: UILabel!
     @IBOutlet weak var emptyView: UIView!
-    @IBOutlet weak var title2: UILabel!
+    
     @IBOutlet weak var title1: UILabel!
+    @IBOutlet weak var title2: UILabel!
     @IBOutlet weak var title3: UILabel!
     
     @IBOutlet weak var weekView: UICollectionView!
@@ -36,45 +47,104 @@ class RoutineVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dayStringList = weekList()
-
+        // test용
+        UserInfo.init()
+        //        routineTable.isHidden = true
+        
+        // 기본 UI Setting
         initUI()
-        routineTable.isHidden = true
         
+        // Rutine UI Setting
+        makeWeekListData()
         
-        
-        let nib = UINib(nibName: "RoutineCell", bundle: nil)
-        routineTable.register(nib, forCellReuseIdentifier: "RoutineCell")
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        routineData.append(RoutineData(category: 1, title: "출근 전 아침 러닝", time: "AM 7:20"))
-        //        routineData.append(RoutineData(category: 2, title: "취침 전 책 읽기", time: "PM 12:30"))
+        // 오늘 날짜로 루틴 데이터 mapping 및 테이블 구성
+        // 날짜 형식 : 2024-08-03
+        getDayRoutine(day: dateToString(day: Date()))
+
+      
+
         NotificationCenter.default.addObserver(self, selector: #selector(showPage(_:)), name: NSNotification.Name("noti"), object: nil)
     }
+
+    /// 특정 날짜에 대한 루틴 데이터 maping
+    /// - Parameter day: 선택된 날짜
+    func getDayRoutine(day: String) {
+        let request = APIRequest(method: .get,
+                                 path: "/routine/\(UserInfo.memberId)/\(day)",
+                                 param: nil,
+                                 headers: APIConfig.authHeaders)
+        
+        APIService.shared.perform(request: request,
+                                  completion: { [self] (result) in
+            switch result {
+            case .success(let data):
+                if let data = data.body["data"] as? [[String:Any]] {
+                    if data.count > 0 {
+                        for list in data {
+                            let dayRutine = Routine.init(routineCategories: list["routineCategories"] as! String,
+                                                      routineContent: list["routineContent"] as! String,
+                                                      routineAlarmTime: list["routineAlarmTime"] as! String,
+                                                      routineStatus: list["routineStatus"] as! String,
+                                                      routineId: list["routineId"] as! Int)
+                            routineDataList.append(dayRutine)
+                        }
+                    }
+                    else{
+                        routineDataList.removeAll()
+                    }
+                    makeRoutineTableUI(routineList: routineDataList)
+                }
+            case .failure:
+                print(APIError.networkFailed)
+            }
+        })
+    }
     
-    func weekList() -> [String] {
+    // 루틴 데이터 개수에 따라 UI 처리
+    func makeRoutineTableUI(routineList: [Routine]){
+        if routineList.count > 0 {       
+            // routine 데이터 있는 경우
+            print(routineDataList)
+            
+            let nib = UINib(nibName: "RoutineCell", bundle: nil)
+            routineTable.register(nib, forCellReuseIdentifier: "RoutineCell")
+            routineTable.reloadData()
+            
+            emptyView.isHidden = true
+            if routineList.count == 3 {
+                plusBtn.isHidden = true
+            }
+        }else{
+            routineTable.reloadData()
+            emptyView.isHidden = false
+            plusBtn.isHidden = false
+        }
+    }
+    
+    // 주간 캘린더 데이터 생성
+    func makeWeekListData(){
         var tmpDayStringList = [String]()
         var tmpDayDateList = [Date]()
-        var formatter = DateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "dd E"
         formatter.locale = Locale(identifier:"ko_KR")
         
         let today = Date()
         tmpDayDateList.append(today)
-        var date_string1 = formatter.string(from: today)
+        let date_string1 = formatter.string(from: today)
         tmpDayStringList.append(date_string1)
         
         for i in 1...6 {
             let beforeDay = Calendar.current.date(byAdding: .day, value: -i, to: today)
-            var date_string2 = formatter.string(from: beforeDay!)
-            
+            let date_string2 = formatter.string(from: beforeDay!)
             tmpDayDateList.append(beforeDay!)
             tmpDayStringList.append(date_string2)
         }
-        
-        dayDateList = tmpDayDateList.sorted(by: <)
-        return tmpDayStringList.sorted(by: <)
+        dayDateList = tmpDayDateList.reversed()
+        dayStringList = tmpDayStringList.reversed()
     }
     
+    // Date tyep To String Type
     func dateToString(day: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
@@ -82,7 +152,6 @@ class RoutineVC: UIViewController {
         let str = formatter.string(from: day)
         return str
     }
-
     
     @objc func showPage(_ notification:Notification) {
         //push
@@ -110,61 +179,44 @@ class RoutineVC: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        //
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .white  // 색상 변경
         self.navigationItem.backBarButtonItem = backBarButtonItem
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
-    //
+
     @IBAction func plusBtn(_ sender: Any) {
-        routineData.append(RoutineData(category: 2, title: "취침 전 책 읽기", time: "PM 10:30"))
-     
+//        routineDataList.append(RoutineData(category: 2, title: "취침 전 책 읽기", time: "PM 10:30"))
     }
     
-    func getDayRoutine(day: String) {
-        let request = APIRequest(method: .get,
-                                 path: "/routine/\(UserInfo.memberId)/\(day)",
-                                 param: nil,
-                                 headers: APIConfig.authHeaders)
-        
-        APIService.shared.perform(request: request,
-                                  completion: { [self] (result) in
-            switch result {
-            case .success(let data):
-                if let data = data.body["data"] as? [[String:Any]] {
-                    for list in data {
-                        print(list["routineCategories"])
-                    }
-                }
-            case .failure:
-                print(APIError.networkFailed)
-            }
-        })
-    }
+
     
+    // init UI data setting
     func initUI() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        
         plusBtn.backgroundColor = .clear
         plusBtn.layer.borderWidth = 1
-        plusBtn.layer.borderColor = UIColor.init(hexCode: "#54ADFF").cgColor
+        plusBtn.layer.borderColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE).cgColor
         plusBtn.layer.cornerRadius = 10
-        plusBtn.setTitleColor(UIColor.init(hexCode: "#54ADFF"), for: .normal)
+        plusBtn.setTitleColor(UIColor.init(hexCode: CustomColor.Category.EXERCISE), for: .normal)
         
         title1.font = UIFont.h2()
         title2.font = UIFont.h2()
         title3.font = UIFont.h2()
         
         title1.text = "\(UserInfo.name)님, 반가워요"
-        title1.textColor = UIColor.init(hexCode: "#FAFAFA")
-        title2.textColor = UIColor.init(hexCode: "#54ADFF")
-        title3.textColor = UIColor.init(hexCode: "#FAFAFA")
+        title1.textColor = UIColor.init(hexCode: CustomColor.white)
+        title2.textColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE)
+        title3.textColor = UIColor.init(hexCode: CustomColor.white)
         
         emptytitle1.font = UIFont.h4()
-        emptytitle1.textColor = UIColor.init(hexCode: "#9E9E9E")
+        emptytitle1.textColor = UIColor.init(hexCode: CustomColor.light_gray)
         emptytitle2.font = UIFont.body1()
-        emptytitle2.textColor = UIColor.init(hexCode: "#9E9E9E")
+        emptytitle2.textColor = UIColor.init(hexCode: CustomColor.light_gray)
         emptytitle3.font = UIFont.body1()
-        emptytitle3.textColor = UIColor.init(hexCode: "#9E9E9E")
+        emptytitle3.textColor = UIColor.init(hexCode: CustomColor.light_gray)
     }
 }
 
@@ -195,18 +247,12 @@ extension RoutineVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDay = dayDateList[indexPath.row]
         getDayRoutine(day: dateToString(day: selectedDay))
-        
-        if indexPath.row == 0 {
-            self.routineTable.reloadData()
-            
-        }
-        
     }
 }
 
 extension RoutineVC: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        routineData.count
+        routineDataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -214,19 +260,19 @@ extension RoutineVC: UITableViewDataSource, UITableViewDelegate{
         cell.selectionStyle = .none
         
         // 루틴 정보
-        cell.routineTitle.text = routineData[indexPath.row].title
-        cell.routineTime.text = routineData[indexPath.row].time
-        cell.tagTitle.text = routineData[indexPath.row].category == 1 ? "운동" : "독서"
+        cell.routineTitle.text = routineDataList[indexPath.row].routineContent
+        cell.routineTime.text = routineDataList[indexPath.row].routineAlarmTime
+        cell.tagTitle.text = routineDataList[indexPath.row].routineCategories == "EXERCISE" ? "운동" : "독서"
         
         //
-        if routineData[indexPath.row].category == 1
+        if routineDataList[indexPath.row].routineCategories == "EXERCISE"
         {
-            cell.tagView.layer.borderColor = UIColor.init(hexCode: "#54adff").cgColor
-            cell.tagTitle.textColor = UIColor.init(hexCode: "#54adff")
+            cell.tagView.layer.borderColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE).cgColor
+            cell.tagTitle.textColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE)
             
         }else{
-            cell.tagView.layer.borderColor = UIColor.init(hexCode: "#cf80ff").cgColor
-            cell.tagTitle.textColor = UIColor.init(hexCode: "#cf80ff")
+            cell.tagView.layer.borderColor = UIColor.init(hexCode: CustomColor.Category.READING).cgColor
+            cell.tagTitle.textColor = UIColor.init(hexCode: CustomColor.Category.READING)
             cell.routineCheckImg.isHidden = true
         }
         
