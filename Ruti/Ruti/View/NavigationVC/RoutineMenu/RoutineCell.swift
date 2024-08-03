@@ -25,23 +25,26 @@ class RoutineCell: UITableViewCell {
         tagView.backgroundColor = .clear
 
         tagTitle.font = UIFont.caption1()
-
        
         baseView.layer.cornerRadius = 10
-        baseView.backgroundColor = UIColor.init(hexCode: "#3E3E3E")
-        baseView.layer.borderColor = UIColor.init(hexCode: "#111111").cgColor
+        baseView.backgroundColor = UIColor.init(hexCode: CustomColor.deep_dark_gray)
+//        baseView.backgroundColor = UIColor.red
+        baseView.layer.borderColor = UIColor.init(hexCode: CustomColor.black).cgColor
         baseView.layer.borderWidth = 1
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.systemYellow
+        selectedBackgroundView = backgroundView
         
         routineTitle.font = UIFont.body1()
         routineTime.font = UIFont.caption1()
-        routineTitle.textColor = UIColor.init(hexCode: "#fafafa")
-        routineTime.textColor = UIColor.init(hexCode: "#fafafa")
+        routineTitle.textColor = UIColor.init(hexCode: CustomColor.white)
+        routineTime.textColor = UIColor.init(hexCode: CustomColor.white)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
 }
