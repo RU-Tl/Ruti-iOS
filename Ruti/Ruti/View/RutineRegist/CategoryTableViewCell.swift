@@ -23,7 +23,7 @@ class CategoryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         baseView.layer.cornerRadius = 10
-        baseView.layer.borderColor = UIColor.init(hexCode: "#757575").cgColor
+        baseView.layer.borderColor = UIColor.init(hexCode: CustomColor.dark_gray).cgColor
         baseView.layer.borderWidth = 1
         categoryImg.layer.cornerRadius = 10
     }

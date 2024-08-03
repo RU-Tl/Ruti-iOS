@@ -14,7 +14,7 @@ class TagCell: UICollectionViewCell {
     let tagLabel: UILabel = {
         let customUILabel = UILabel()
         customUILabel.font = UIFont.body3()
-        customUILabel.textColor = UIColor.init(hexCode: "#FFFFFF")
+        customUILabel.textColor = UIColor.init(hexCode: CustomColor.clear_white)
         customUILabel.isUserInteractionEnabled = false
         customUILabel.translatesAutoresizingMaskIntoConstraints = false
         return customUILabel
@@ -24,10 +24,10 @@ class TagCell: UICollectionViewCell {
       didSet {
         if isSelected {
             layer.borderWidth = 1
-            layer.borderColor = UIColor(hexCode: "#54ADFF").cgColor
+            layer.borderColor = UIColor(hexCode: CustomColor.Category.EXERCISE).cgColor
         } else {
             layer.borderWidth = 1
-            layer.borderColor = UIColor(hexCode: "#757575").cgColor
+            layer.borderColor = UIColor(hexCode: CustomColor.dark_gray).cgColor
         }
       }
     }
@@ -37,7 +37,7 @@ class TagCell: UICollectionViewCell {
         super.init(frame: frame)
         layer.cornerRadius = 5
         layer.borderWidth = 1
-        layer.borderColor = UIColor(hexCode: "#757575").cgColor
+        layer.borderColor = UIColor(hexCode: CustomColor.dark_gray).cgColor
         backgroundColor = .clear
         addSubview(tagLabel)
         setConstraint()
