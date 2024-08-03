@@ -7,8 +7,9 @@
 
 import UIKit
 
-class RutineRegistStep3VC: UIViewController {
-    
+// 루틴 등록 화면 3
+class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
+
     @IBOutlet weak var registTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var categoryTitle: UILabel!
@@ -27,8 +28,16 @@ class RutineRegistStep3VC: UIViewController {
     let startdateList = ["오늘", "내일", "모레"]
     let enddateList = ["30일 뒤", "60일 뒤", "100일 뒤","날짜 선택"]
     
+    var selectedStartDate: Date?
+    var selectedEndDate: Date?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //날짜 init
+        startDate.text = ""
+        endDate.text = ""
+
+        
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self
         tagCollectionView.register(TagCell.self, forCellWithReuseIdentifier: TagCell.identifier)
@@ -51,16 +60,16 @@ class RutineRegistStep3VC: UIViewController {
         categoryTitle.font = UIFont.caption1()
         categoryLabel.font = UIFont.h4()
         startLabel.font = UIFont.subTitle()
-        startLabel.textColor = UIColor.init(hexCode: "#BDBDBD")
+        startLabel.textColor = UIColor.init(hexCode: CustomColor.white_gray)
         
         startDate.font = UIFont.subTitle()
-        startDate.textColor = UIColor.init(hexCode: "#FAFAFA")
+        startDate.textColor = UIColor.init(hexCode: CustomColor.white)
         
         endLabel.font = UIFont.subTitle()
-        endLabel.textColor = UIColor.init(hexCode: "#BDBDBD")
+        endLabel.textColor = UIColor.init(hexCode: CustomColor.white_gray)
         
         endDate.font = UIFont.subTitle()
-        endDate.textColor = UIColor.init(hexCode: "#FAFAFA")
+        endDate.textColor = UIColor.init(hexCode: CustomColor.white)
         
         //btn font
         let title = "다음"
@@ -85,6 +94,20 @@ class RutineRegistStep3VC: UIViewController {
             tagCollectionView2.topAnchor.constraint(equalTo: endLabel.safeAreaLayoutGuide.bottomAnchor, constant: 10),
             tagCollectionView2.bottomAnchor.constraint(equalTo: view2.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func didDismissPopupVC(selectedDate: Date) {
+        print("dismiss")
+        selectedEndDate = selectedDate
+    }
+    
+    @IBAction func registerRoutineTime(_ sender: Any) {
+        let formatter = DateFormatter()
+        // form : "2024-05-24"
+        formatter.dateFormat = "yyyy-MM-dd"
+        // null 처리
+        NewRoutineData.shared.startDate = formatter.string(from: selectedStartDate ?? Date())
+        NewRoutineData.shared.endDate = formatter.string(from: selectedEndDate ?? Date())
     }
     
     // MARK: - tag view
@@ -123,12 +146,12 @@ extension RutineRegistStep3VC: UICollectionViewDelegateFlowLayout {
             if collectionView == tagCollectionView {
                 customLabel.text = startdateList[indexPath.row]
                 customLabel.font = UIFont.body3()
-                customLabel.textColor = UIColor.init(hexCode: "#FFFFFF")
+                customLabel.textColor = UIColor.init(hexCode: CustomColor.clear_white)
                 
             }else if collectionView == tagCollectionView2{
                 customLabel.text = enddateList[indexPath.item]
                 customLabel.font = UIFont.body3()
-                customLabel.textColor = UIColor.init(hexCode: "#FFFFFF")
+                customLabel.textColor = UIColor.init(hexCode: CustomColor.clear_white)
             }
             customLabel.sizeToFit()
             return customLabel
@@ -178,18 +201,54 @@ extension RutineRegistStep3VC: UICollectionViewDelegate , UICollectionViewDataSo
         
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //날짜 선택 팝업 뷰 띄우기
+        let today = Date()
+        var formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일"
+        
+        // 루틴 시작 날짜 선택
+        if collectionView == tagCollectionView{
+            if indexPath.row == 0 {
+                // 오늘
+                selectedStartDate = Date()
+            }else if indexPath.row == 1 {
+                // 내일
+                selectedStartDate = Calendar.current.date(byAdding: .day, value: 1, to: today)
+            }else if indexPath.row == 2 {
+                // 모레
+                selectedStartDate = Calendar.current.date(byAdding: .day, value: 2, to: today)
+            }
+            startDate.text = formatter.string(from: selectedStartDate!)
+        }
+        
+        // 루틴 종료 날짜 선택
+        // ["30일 뒤", "60일 뒤", "100일 뒤","날짜 선택"]
         if collectionView == tagCollectionView2{
-            if indexPath.row == enddateList.count-1 {
+            if indexPath.row == 0 {
+                selectedEndDate = Calendar.current.date(byAdding: .day, value: 30, to: today)
+            }else if indexPath.row == 1 {
+                selectedEndDate = Calendar.current.date(byAdding: .day, value: 60, to: today)
+            }else if indexPath.row == 2 {
+                selectedEndDate = Calendar.current.date(byAdding: .day, value: 100, to: today)
+            }
+            else if indexPath.row == 3 {
+                //날짜 선택 팝업 뷰 띄우기
                 let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-                let popupVC = storyBoard.instantiateViewController(withIdentifier: "PopupVC")
-                popupVC.modalPresentationStyle = .overFullScreen
-                present(popupVC, animated: false, completion: nil)
-//                if let boardVC = self.storyboard?.instantiateViewController(withIdentifier: "RegistView") as? RutineRegistStep2VC{
-//                    self.navigationController?.pushViewController(boardVC, animated: true)
-//                    boardVC.selectedCategory = categoryList2[indexPath.row]
-//                }
+                if let popupVC = storyBoard.instantiateViewController(withIdentifier: "PopupVC") as? PopupVC{
+                    popupVC.modalPresentationStyle = .overFullScreen
+                    present(popupVC, animated: false, completion: nil)
+                    
+                    var vc2 = PopupVC()
+                    vc2.popupVCDelegate = self
+//                    selectedEndDate = popupVC.selectedEndDate
+                }
+            }
+            
+            if let selectedEndDate = selectedEndDate {
+                endDate.text = formatter.string(from: selectedEndDate)
+            }else {
+                endDate.text = ""
             }
         }
     }

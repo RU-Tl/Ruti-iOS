@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 루틴 등록 화면 2
 class RutineRegistStep2VC: UIViewController {
     
     @IBOutlet weak var registTitle: UILabel!
@@ -28,15 +29,17 @@ class RutineRegistStep2VC: UIViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
     @objc func dismissKeyboard(){
         self.view.endEditing(true)
     }
+    
     func initUI() {
         categoryLabel.text = selectedCategory ?? ""
         routineTextlFiled.borderStyle = .none
         let border = CALayer()
         border.frame = CGRect(x: 0, y: routineTextlFiled.frame.size.height-1, width: routineTextlFiled.frame.width, height: 1)
-        border.backgroundColor = UIColor(hexCode: "#54ADFF").cgColor
+        border.backgroundColor = UIColor(hexCode: CustomColor.Category.EXERCISE).cgColor
         routineTextlFiled.layer.addSublayer((border))
         routineTextlFiled.textAlignment = .center
         routineTextlFiled.textColor = UIColor.white
@@ -54,6 +57,10 @@ class RutineRegistStep2VC: UIViewController {
         let attributedText = NSAttributedString(string: title, attributes: attributes)
         nextBtn.setAttributedTitle(attributedText, for: .normal)
         nextBtn.layer.cornerRadius = 10
+    }
+    
+    @IBAction func registerRoutineTitle(_ sender: Any) {
+        NewRoutineData.shared.content = routineTextlFiled.text
     }
 }
 
