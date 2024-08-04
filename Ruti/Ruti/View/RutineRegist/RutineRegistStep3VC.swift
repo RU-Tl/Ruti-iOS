@@ -33,6 +33,7 @@ class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         //날짜 init
         startDate.text = ""
         endDate.text = ""
@@ -96,9 +97,12 @@ class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
         ])
     }
     
+    // calendarview dismiss delegate
     func didDismissPopupVC(selectedDate: Date) {
-        print("dismiss")
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일"
         selectedEndDate = selectedDate
+        endDate.text = formatter.string(from: selectedEndDate!)
     }
     
     @IBAction func registerRoutineTime(_ sender: Any) {
@@ -204,7 +208,7 @@ extension RutineRegistStep3VC: UICollectionViewDelegate , UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let today = Date()
-        var formatter = DateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
         
         // 루틴 시작 날짜 선택
@@ -239,8 +243,9 @@ extension RutineRegistStep3VC: UICollectionViewDelegate , UICollectionViewDataSo
                     popupVC.modalPresentationStyle = .overFullScreen
                     present(popupVC, animated: false, completion: nil)
                     
-                    var vc2 = PopupVC()
-                    vc2.popupVCDelegate = self
+               
+                    popupVC.popupVCDelegate = self
+                        
 //                    selectedEndDate = popupVC.selectedEndDate
                 }
             }
