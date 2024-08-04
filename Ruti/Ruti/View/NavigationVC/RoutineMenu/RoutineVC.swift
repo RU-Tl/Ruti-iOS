@@ -246,6 +246,8 @@ extension RoutineVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDay = dayDateList[indexPath.row]
+        // routineDataList clear 후 조회
+        routineDataList.removeAll()
         getDayRoutine(day: dateToString(day: selectedDay))
     }
 }
