@@ -35,8 +35,12 @@ class RutineRegistStep2VC: UIViewController {
     }
     
     func initUI() {
+        // 텍스트 필드 포커싱
+//        routineTextlFiled.becomeFirstResponder()
+        
         categoryLabel.text = selectedCategory ?? ""
         routineTextlFiled.borderStyle = .none
+        
         let border = CALayer()
         border.frame = CGRect(x: 0, y: routineTextlFiled.frame.size.height-1, width: routineTextlFiled.frame.width, height: 1)
         border.backgroundColor = UIColor(hexCode: CustomColor.Category.EXERCISE).cgColor
@@ -59,8 +63,32 @@ class RutineRegistStep2VC: UIViewController {
         nextBtn.layer.cornerRadius = 10
     }
     
-    @IBAction func registerRoutineTitle(_ sender: Any) {
+    // 다음 단계 전 input validate 수행
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if let routineText = routineTextlFiled.text {
+            if routineText.isEmpty {
+                print("루틴 제목 추가 안함")
+    
+                AlertView.showAlert(title: "등록할 루틴 이름을 추가해주세요.",
+                                    message: nil,
+                                    viewController: self,
+                                    dismissAction: nil)
+                return false
+            }
+        }
         NewRoutineData.shared.content = routineTextlFiled.text
+        return true
+    }
+    
+    @IBAction func registerRoutineTitle(_ sender: Any) {
+//        if ((routineTextlFiled.text?.isEmpty) != nil) {
+//            AlertView.showAlert(title: "등록할 루틴 이름을 추가해주세요.",
+//                                message: nil,
+//                                viewController: self,
+//                                dismissAction: nil)
+//        }else{
+//            NewRoutineData.shared.content = routineTextlFiled.text
+//        }
     }
 }
 
