@@ -9,7 +9,7 @@ import UIKit
 
 // 루틴 등록 화면 3
 class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
-
+    
     @IBOutlet weak var registTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var categoryTitle: UILabel!
@@ -18,7 +18,7 @@ class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
     
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
-
+    
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var startDate: UILabel!
     
@@ -33,11 +33,10 @@ class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         //날짜 init
         startDate.text = ""
         endDate.text = ""
-
         
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self
@@ -46,7 +45,7 @@ class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
         tagCollectionView2.delegate = self
         tagCollectionView2.dataSource = self
         tagCollectionView2.register(TagCell.self, forCellWithReuseIdentifier: TagCell.identifier)
-      
+        
         initUI()
         
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -105,13 +104,35 @@ class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
         endDate.text = formatter.string(from: selectedEndDate!)
     }
     
+    // 다음 단계 전 input validate 수행
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if selectedStartDate == nil {
+            AlertView.showAlert(title: "등록할 루틴 시작일을 추가해주세요.",
+                                message: nil,
+                                viewController: self,
+                                dismissAction: nil)
+            return false
+        }else if selectedEndDate == nil {
+            AlertView.showAlert(title: "등록할 루틴 종료일을 추가해주세요.",
+                                message: nil,
+                                viewController: self,
+                                dismissAction: nil)
+            return false
+        }
+        return true
+    }
+    
     @IBAction func registerRoutineTime(_ sender: Any) {
         let formatter = DateFormatter()
         // form : "2024-05-24"
         formatter.dateFormat = "yyyy-MM-dd"
         // null 처리
-        NewRoutineData.shared.startDate = formatter.string(from: selectedStartDate ?? Date())
-        NewRoutineData.shared.endDate = formatter.string(from: selectedEndDate ?? Date())
+        if let selectedStartDate = selectedStartDate {
+            NewRoutineData.shared.startDate = formatter.string(from: selectedStartDate)
+        }
+        if let selectedEndDate = selectedEndDate {
+            NewRoutineData.shared.endDate = formatter.string(from: selectedEndDate)
+        }
     }
     
     // MARK: - tag view
@@ -141,37 +162,8 @@ class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
     }()
     
 }
-extension RutineRegistStep3VC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let label: UILabel = {
-            let customLabel = UILabel()
-            customLabel.font = UIFont.subTitle()
-            if collectionView == tagCollectionView {
-                customLabel.text = startdateList[indexPath.row]
-                customLabel.font = UIFont.body3()
-                customLabel.textColor = UIColor.init(hexCode: CustomColor.clear_white)
-                
-            }else if collectionView == tagCollectionView2{
-                customLabel.text = enddateList[indexPath.item]
-                customLabel.font = UIFont.body3()
-                customLabel.textColor = UIColor.init(hexCode: CustomColor.clear_white)
-            }
-            customLabel.sizeToFit()
-            return customLabel
-        }()
-        let size = label.frame.size
-       
-        
-        if collectionView == tagCollectionView {
-            return CGSize(width: size.width + 75, height: 58)
-        }else if collectionView == tagCollectionView2{
-            return CGSize(width: size.width + 18, height: 58)
-        }
-        return CGSize()
-    }
-}
-extension RutineRegistStep3VC: UICollectionViewDelegate , UICollectionViewDataSource{
+
+extension RutineRegistStep3VC: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == tagCollectionView {
@@ -187,20 +179,10 @@ extension RutineRegistStep3VC: UICollectionViewDelegate , UICollectionViewDataSo
             return UICollectionViewCell()
         }
         
-//        cell.backgroundColor = .white
         if collectionView == tagCollectionView {
             cell.tagLabel.text = startdateList[indexPath.row]
-            
-//            if cell.tagLabel.text == self.categorie {
-//                collectionView.selectItem(at: indexPath, animated: false , scrollPosition: .init())
-//                cell.isSelected = true
-//            }
         }else if collectionView == tagCollectionView2{
             cell.tagLabel.text = enddateList[indexPath.row]
-//            if cell.tagLabel.text == self.emotion {
-//                collectionView.selectItem(at: indexPath, animated: false , scrollPosition: .init())
-//                cell.isSelected = true
-//            }
         }
         
         return cell
@@ -242,11 +224,8 @@ extension RutineRegistStep3VC: UICollectionViewDelegate , UICollectionViewDataSo
                 if let popupVC = storyBoard.instantiateViewController(withIdentifier: "PopupVC") as? PopupVC{
                     popupVC.modalPresentationStyle = .overFullScreen
                     present(popupVC, animated: false, completion: nil)
-                    
-               
+                    // delegate 위임
                     popupVC.popupVCDelegate = self
-                        
-//                    selectedEndDate = popupVC.selectedEndDate
                 }
             }
             
@@ -259,7 +238,36 @@ extension RutineRegistStep3VC: UICollectionViewDelegate , UICollectionViewDataSo
     }
 }
 
-
+extension RutineRegistStep3VC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let label: UILabel = {
+            let customLabel = UILabel()
+            customLabel.font = UIFont.subTitle()
+            if collectionView == tagCollectionView {
+                customLabel.text = startdateList[indexPath.row]
+                customLabel.font = UIFont.body3()
+                customLabel.textColor = UIColor.init(hexCode: CustomColor.clear_white)
+                
+            }else if collectionView == tagCollectionView2{
+                customLabel.text = enddateList[indexPath.item]
+                customLabel.font = UIFont.body3()
+                customLabel.textColor = UIColor.init(hexCode: CustomColor.clear_white)
+            }
+            customLabel.sizeToFit()
+            return customLabel
+        }()
+        let size = label.frame.size
+        
+        
+        if collectionView == tagCollectionView {
+            return CGSize(width: size.width + 75, height: 58)
+        }else if collectionView == tagCollectionView2{
+            return CGSize(width: size.width + 18, height: 58)
+        }
+        return CGSize()
+    }
+}
 
 class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
