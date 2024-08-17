@@ -16,9 +16,7 @@ class RutineRegistStep2VC: UIViewController {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var routineTextlFiled: UITextField!
-    
-    var selectedCategory: String?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
@@ -38,7 +36,7 @@ class RutineRegistStep2VC: UIViewController {
         // 텍스트 필드 포커싱
 //        routineTextlFiled.becomeFirstResponder()
         
-        categoryLabel.text = selectedCategory ?? ""
+        categoryLabel.text = categoryDict[NewRoutineData.shared.categories ?? ""]
         routineTextlFiled.borderStyle = .none
         
         let border = CALayer()

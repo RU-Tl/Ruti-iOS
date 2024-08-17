@@ -37,6 +37,7 @@ class RutineRegistStep3VC: UIViewController, PopupVCDelegate {
         //날짜 init
         startDate.text = ""
         endDate.text = ""
+        categoryLabel.text = categoryDict[NewRoutineData.shared.categories ?? ""]
         
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self

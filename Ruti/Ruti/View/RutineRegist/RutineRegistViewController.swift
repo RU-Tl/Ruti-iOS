@@ -7,6 +7,26 @@
 
 import UIKit
 
+// 루틴 등록 화면 1
+class NewRoutineData {
+    static let shared = NewRoutineData()
+    private init() {}
+
+//    {
+//       "categories" : "EXERCISE",
+//       // EXERCISE(운동), READING(독서), DEVELOPMENT(자기계발)
+//      "content" : "아침 조깅",
+//      "startDate" : "2024-05-24",
+//       "endDate" : "2024-05-31",
+//       "alarmTime" : "AM 7:20"
+//    }
+    var categories: String?
+    var content: String?
+    var startDate: String?
+    var endDate: String?
+    var alarmTime: String?
+}
+
 class RutineRegistViewController: UIViewController {
     
     @IBOutlet weak var categoryTable: UITableView!
@@ -20,53 +40,17 @@ class RutineRegistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
+    }
+    
+    func initUI() {
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .white  // 색상 변경
         self.navigationItem.backBarButtonItem = backBarButtonItem
         navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    func initUI() {
+        
         categoryTable.backgroundColor = .clear
         registTitle.font = UIFont.h1()
         subtitle.font = UIFont.body3()
-        let healthTitle = "건강 지키는, 운동"
-        let rTitle = "마음의 양식, 독서"
-        let dTitle = "끝 없는, 자기계발"
-
-    }
-}
-
-extension UIButton {
-    func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
-        UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
-        guard let context = UIGraphicsGetCurrentContext() else { return }
-        context.setFillColor(color.cgColor)
-        context.fill(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0))
-        
-        let backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        self.setBackgroundImage(backgroundImage, for: state)
-    }
-}
-
-extension UIColor {
-    convenience init(hexCode: String, alpha: CGFloat = 1.0) {
-        var hexFormatted: String = hexCode.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
-        
-        if hexFormatted.hasPrefix("#") {
-            hexFormatted = String(hexFormatted.dropFirst())
-        }
-        
-        assert(hexFormatted.count == 6, "Invalid hex code used.")
-        
-        var rgbValue: UInt64 = 0
-        Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
-        
-        self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-                  green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-                  blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-                  alpha: alpha)
     }
 }
 
@@ -77,7 +61,7 @@ extension RutineRegistViewController: UITableViewDataSource, UITableViewDelegate
         cell.selectionStyle = .none
         cell.categoryTitle.text = categoryList[indexPath.row]
         cell.categoryTitle.font = UIFont.h4()
-        cell.categoryTitle.textColor = UIColor.init(hexCode: "#FAFAFA")
+        cell.categoryTitle.textColor = UIColor.init(hexCode: CustomColor.white)
         
         cell.categoryImg?.translatesAutoresizingMaskIntoConstraints = false
         cell.categoryImg?.contentMode = .scaleAspectFill
@@ -122,9 +106,15 @@ extension RutineRegistViewController: UITableViewDataSource, UITableViewDelegate
             cell.baseView.backgroundColor = .white
         }
         
-        if let boardVC = self.storyboard?.instantiateViewController(withIdentifier: "RegistView") as? RutineRegistStep2VC{
+        if let boardVC = self.storyboard?.instantiateViewController(withIdentifier: "RegistView") as? RutineRegistStep2VC {
             self.navigationController?.pushViewController(boardVC, animated: true)
-            boardVC.selectedCategory = categoryList2[indexPath.row]
+            if indexPath.row == 0 {
+                NewRoutineData.shared.categories = "EXERCISE"
+            }else if indexPath.row == 1 {
+                NewRoutineData.shared.categories = "READING"
+            }else{
+                NewRoutineData.shared.categories = "DEVELOPMENT"
+            }
         }
     }
     
