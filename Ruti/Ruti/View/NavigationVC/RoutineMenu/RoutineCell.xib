@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ji-kg-XDJ">
-                        <rect key="frame" x="0.0" y="0.0" width="57" height="25"/>
+                        <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="25"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hso-w8-qxE">
-                                <rect key="frame" x="0.0" y="0.0" width="57" height="25"/>
+                                <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -34,7 +34,6 @@
                             <constraint firstAttribute="bottom" secondItem="Hso-w8-qxE" secondAttribute="bottom" id="g0c-iH-jpf"/>
                             <constraint firstAttribute="height" constant="25" id="nmJ-PV-bLX"/>
                             <constraint firstAttribute="trailing" secondItem="Hso-w8-qxE" secondAttribute="trailing" id="tTd-2O-rqg"/>
-                            <constraint firstAttribute="width" constant="57" id="u4U-lc-QHa"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKs-Je-2G2">

@@ -23,9 +23,8 @@ class RoutineCell: UITableViewCell {
         tagView.layer.cornerRadius = 13
         tagView.layer.borderWidth = 1
         tagView.backgroundColor = .clear
-
         tagTitle.font = UIFont.caption1()
-       
+        
         baseView.layer.cornerRadius = 10
         baseView.backgroundColor = UIColor.init(hexCode: CustomColor.deep_dark_gray)
 //        baseView.backgroundColor = UIColor.red

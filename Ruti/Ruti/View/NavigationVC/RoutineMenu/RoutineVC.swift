@@ -23,7 +23,6 @@ struct Routine {
 }
 
 class RoutineVC: UIViewController {
-    var routineData2 = [RoutineData]()
     var routineDataList = [Routine]()
     var dayStringList = [String]()
     var dayDateList = [Date]()
@@ -46,6 +45,7 @@ class RoutineVC: UIViewController {
     var selectedDay = Date()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // test용
         UserInfo.init()
@@ -261,21 +261,30 @@ extension RoutineVC: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCell", for: indexPath) as! RoutineCell
         cell.selectionStyle = .none
         
-        // 루틴 정보
+        // 루틴 정보에 따른 cell 속성 변경
         cell.routineTitle.text = routineDataList[indexPath.row].routineContent
         cell.routineTime.text = routineDataList[indexPath.row].routineAlarmTime
-        cell.tagTitle.text = routineDataList[indexPath.row].routineCategories == "EXERCISE" ? "운동" : "독서"
+        cell.tagTitle.text = categoryDict[routineDataList[indexPath.row].routineCategories]
+        // 루틴 성공 여부
+        //NONE,SUCCESS
+        if routineDataList[indexPath.row].routineStatus != "SUCCESS" {
+            cell.routineCheckImg.isHidden = true
+        }
         
-        //
+        cell.tagView.translatesAutoresizingMaskIntoConstraints = false
+        cell.tagView.widthAnchor.constraint(equalToConstant: CGFloat(cell.tagTitle.text?.count ?? 0)*15 + 20).isActive = true
+        
         if routineDataList[indexPath.row].routineCategories == "EXERCISE"
         {
             cell.tagView.layer.borderColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE).cgColor
             cell.tagTitle.textColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE)
             
-        }else{
+        } else if routineDataList[indexPath.row].routineCategories == "READING" {
             cell.tagView.layer.borderColor = UIColor.init(hexCode: CustomColor.Category.READING).cgColor
             cell.tagTitle.textColor = UIColor.init(hexCode: CustomColor.Category.READING)
-            cell.routineCheckImg.isHidden = true
+        } else {
+            cell.tagView.layer.borderColor = UIColor.init(hexCode: CustomColor.Category.DEVELOPMENT).cgColor
+            cell.tagTitle.textColor = UIColor.init(hexCode: CustomColor.Category.DEVELOPMENT)
         }
         
         return cell
