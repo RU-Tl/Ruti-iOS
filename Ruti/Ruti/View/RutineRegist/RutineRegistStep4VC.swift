@@ -21,6 +21,7 @@ class RutineRegistStep4VC: UIViewController {
     @IBOutlet weak var timePicker: UIDatePicker!
     
     let dayList = ["일", "월", "화", "수", "목", "금", "토"]
+    
     var selectedDayList: Set<String> = []
     
     override func viewDidLoad() {
@@ -52,54 +53,133 @@ class RutineRegistStep4VC: UIViewController {
         changed()
     }
     
+    func weeklyDateParsing(selectedDayList: Set<String>) {
+        var tmpDayList = [String]()
+        NewRoutineData.shared.daysOfWeek?.removeAll()
+        
+        let dayDict = ["일" : "Sun",
+                       "월" : "Mon",
+                       "화" : "Tue",
+                       "수" : "Wed",
+                       "목" : "Thu",
+                       "금" : "Fri",
+                       "토" : "Sat"]
+        
+        for day in selectedDayList {
+            tmpDayList.append(dayDict[day]!)
+        }
+        
+        NewRoutineData.shared.daysOfWeek = tmpDayList
+    }
+    
     // 루틴 등록 버튼
     @IBAction func rutineRegistAction(_ sender: Any) {
         // 1. 요일 input validate
         // >> 서버 리팩토링 이후 추가
-//        if selectedDayList.count < 1 {
-//            AlertView.showAlert(title: "루틴을 반복할 요일을 선택해주세요.",
-//                                message: nil,
-//                                viewController: self,
-//                                dismissAction: nil)
-//        } else {
+        if selectedDayList.count < 1 {
+            AlertView.showAlert(title: "루틴을 반복할 요일을 선택해주세요.",
+                                message: nil,
+                                viewController: self,
+                                dismissAction: nil)
+        } else {
             //2. 시간 input validate - "AM 7:20"
             let selectedAlarmTime = timePicker.date
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "en_US_POSIX")
             formatter.dateFormat = "a h:mm"
+            
+            let formatterHour = DateFormatter()
+            formatterHour.locale = Locale(identifier: "en_US_POSIX")
+            formatterHour.dateFormat = "HH"
+            
+            let formatterMinute = DateFormatter()
+            formatterMinute.locale = Locale(identifier: "en_US_POSIX")
+            formatterMinute.dateFormat = "mm"
+            
             NewRoutineData.shared.alarmTime = formatter.string(from: selectedAlarmTime)
             
+            NewRoutineData.shared.alarmHour = Int(formatterHour.string(from: selectedAlarmTime))
+            NewRoutineData.shared.alarmMinute = Int(formatterMinute.string(from: selectedAlarmTime))
+            
+            //3. week date parsing
+            self.weeklyDateParsing(selectedDayList: self.selectedDayList)
+            self.registerLocalPush(routine: NewRoutineData.shared)
+            
+            
+            
             // NW Request
-            let routineParameter: Parameters = [ "categories" : NewRoutineData.shared.categories!,
-                                                 "content" : NewRoutineData.shared.content!,
-                                                 "startDate" : NewRoutineData.shared.startDate!,
-                                                 "endDate" : NewRoutineData.shared.endDate!,
-                                                 "alarmTime" : NewRoutineData.shared.alarmTime!]
-            
-            let request = APIRequest(method: .post,
-                                     path: "/routine/\(UserInfo.memberId)",
-                                     param: routineParameter,
-                                     headers: APIConfig.authHeaders)
-            
-            APIService.shared.perform(request: request,
-                                      completion: { (result) in
-                switch result {
-                case .success(let data):
-                    if let data = data.body["data"] as? [String:Any]{
-                        if let routineId = data["routineId"] as? Int{
-                            print(routineId)
-                            self.performSegue(withIdentifier: "registerComplete", sender: sender)
-                        }
-                    }
-                case .failure:
-                    print(APIError.networkFailed)
-                    AlertView.showAlert(title: "루틴이 등록되지 않았습니다.",
-                                        message: nil,
-                                        viewController: self,
-                                        dismissAction: nil)
+//            let routineParameter: Parameters = [ "categories" : NewRoutineData.shared.categories!,
+//                                                 "content" : NewRoutineData.shared.content!,
+//                                                 "startDate" : NewRoutineData.shared.startDate!,
+//                                                 "endDate" : NewRoutineData.shared.endDate!,
+//                                                 "alarmTime" : NewRoutineData.shared.alarmTime!,
+//                                                 "daysOfWeek": NewRoutineData.shared.daysOfWeek!]
+//            
+//            let request = APIRequest(method: .post,
+//                                     path: "/routine/\(UserInfo.memberId)",
+//                                     param: routineParameter,
+//                                     headers: APIConfig.authHeaders)
+//            
+//            APIService.shared.perform(request: request,
+//                                      completion: { (result) in
+//                switch result {
+//                case .success(let data):
+//                    if let data = data.body["data"] as? [String:Any]{
+//                        if let routineId = data["routineId"] as? Int{
+//                            print(routineId)
+//                            //등록 성공 후 local push 등록
+//                            self.registerLocalPush(routine: NewRoutineData.shared)
+//                            self.performSegue(withIdentifier: "registerComplete", sender: sender)
+//                        }
+//                    }
+//                    
+//                case .failure:
+//                    print(APIError.networkFailed)
+//                    AlertView.showAlert(title: "루틴이 등록되지 않았습니다.",
+//                                        message: nil,
+//                                        viewController: self,
+//                                        dismissAction: nil)
+//                }
+//            })
+        }
+    }
+    
+    func registerLocalPush(routine: NewRoutineData){
+        // push UI Setting
+        let content = UNMutableNotificationContent()
+        content.title = "\(String(describing: routine.content!)) 시작 시간이에요"
+        content.body = "시작인 반인 루틴 형성, 오늘도 화이팅이에요!"
+        
+        // push day Setting
+        // weekday: 월1 화2 수3 목4 금5 토6 일7
+        let dayDict = ["Mon" : 1,
+                       "Tue" : 2,
+                       "Wed" : 3,
+                       "Thu" : 4,
+                       "Fri" : 5,
+                       "Sat" : 6,
+                       "Sun" : 7]
+        
+        if let daysOfWeek = routine.daysOfWeek {
+            var dateComponents = DateComponents()
+            for day in daysOfWeek {
+                dateComponents.weekday = dayDict[day]
+                dateComponents.hour = routine.alarmHour
+                dateComponents.minute = routine.alarmMinute
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents,
+                                                            repeats: true)
+                let request = UNNotificationRequest(identifier: "\(String(describing: routine.content!))(\(day))",
+                            content: content, trigger: trigger)
+                let notificationCenter = UNUserNotificationCenter.current()
+                notificationCenter.add(request) { (error) in
+                   if error != nil {
+                      // Handle any errors.
+                   }
                 }
-            })
-//        }
+            }
+            
+            LocalNotificationHelper.shared.printPendingNotification()
+        }
     }
     
     // 시간 출력
@@ -149,7 +229,11 @@ extension RutineRegistStep4VC: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        selectedDayList.insert(dayList[indexPath.row])
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        selectedDayList.remove(dayList[indexPath.row])
     }
 }
 

@@ -25,6 +25,9 @@ class NewRoutineData {
     var startDate: String?
     var endDate: String?
     var alarmTime: String?
+    var alarmHour: Int?
+    var alarmMinute: Int?
+    var daysOfWeek: [String]?
 }
 
 class RutineRegistViewController: UIViewController {

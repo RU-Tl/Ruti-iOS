@@ -41,7 +41,7 @@ class LocalNotificationHelper {
         notificationContent.title = title
         notificationContent.body = body
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: true)
         
         let request = UNNotificationRequest(identifier: identifier,
                                             content: notificationContent,
@@ -53,20 +53,28 @@ class LocalNotificationHelper {
             }
         }
     }
-    // ✅
-    func pushReservedNotification(title: String, body: String, date: Date, identifier: String) {
+    
+    // Calendar trigger
+    func pushReservedNotification(title: String, body: String, identifier: String) {
         
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = title
         notificationContent.body = body
         
         // ✅
-        let triggerComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerComponents, repeats: false)
+//        let triggerComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerComponents, repeats: false)
+        var dateComponents = DateComponents()
+        // weekday: 월1 화2 수3 목4 금5 토6 일7
+        dateComponents.calendar = Calendar.current
+        dateComponents.weekday = 6
+        dateComponents.hour = 17
+        dateComponents.minute = 37
+        let triggerDate = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
         let request = UNNotificationRequest(identifier: identifier,
                                             content: notificationContent,
-                                            trigger: trigger)
+                                            trigger: triggerDate)
         
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
@@ -94,6 +102,17 @@ class LocalNotificationHelper {
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
                 print("Notification Error: ", error)
+            }
+        }
+    }
+    func printPendingNotification() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("Identifier: \(request.identifier)")
+                print("Title: \(request.content.title)")
+                print("Body: \(request.content.body)")
+                print("Trigger: \(String(describing: request.trigger))")
+                print("---")
             }
         }
     }

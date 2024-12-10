@@ -31,8 +31,8 @@ class CalendarVC: UIViewController, FSCalendarDelegate, FSCalendarDataSource, UI
         
         if let cell = tagCollectionView.cellForItem(at: indexPath) as? TagCell {
             if indexPath.row == 0 {
-                cell.layer.borderColor = UIColor.init(hexCode: "#54ADFF").cgColor
-                cell.tagLabel.textColor = UIColor.init(hexCode: "#54ADFF")
+                cell.layer.borderColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE).cgColor
+                cell.tagLabel.textColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE)
                 imgete.image = UIImage(named: "calender")
                
                 let xmas = formatter.date(from: "2024-5-5")
@@ -51,11 +51,11 @@ class CalendarVC: UIViewController, FSCalendarDelegate, FSCalendarDataSource, UI
 
               
                 healthArray = [xmas!, xmas2!, xmas3!, xmas4!, xmas5!, xmas6!, xmas7!, xmas8!, xmas9!, xmas10!, xmas11!, xmas12!]
-                calendarView.appearance.eventDefaultColor = UIColor.init(hexCode: "#54ADFF")
+                calendarView.appearance.eventDefaultColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE)
                 calendarView.reloadData()
             }else if indexPath.row == 1 {
-                cell.layer.borderColor =  UIColor.init(hexCode: "#CF80FF").cgColor
-                cell.tagLabel.textColor = UIColor.init(hexCode: "#CF80FF")
+                cell.layer.borderColor =  UIColor.init(hexCode: CustomColor.Category.READING).cgColor
+                cell.tagLabel.textColor = UIColor.init(hexCode: CustomColor.Category.READING)
                 //                imgete.image = UIImage(named: "calender2")
                 imgete.image = UIImage(named: "calender")
                 let xmas = formatter.date(from: "2024-5-1")
@@ -130,8 +130,8 @@ class CalendarVC: UIViewController, FSCalendarDelegate, FSCalendarDataSource, UI
     func initUI() {
         title1.font = UIFont.h2()
         title2.font = UIFont.h2()
-        title1.textColor = UIColor.init(hexCode: "#FAFAFA")
-        title2.textColor = UIColor.init(hexCode: "#FAFAFA")
+        title1.textColor = UIColor.init(hexCode: CustomColor.white)
+        title2.textColor = UIColor.init(hexCode: CustomColor.white)
         
         tagBaseView.layer.cornerRadius = 10
         tagBaseView.addSubview(tagCollectionView)
@@ -145,10 +145,10 @@ class CalendarVC: UIViewController, FSCalendarDelegate, FSCalendarDataSource, UI
         
         self.calendarView.backgroundColor = .clear
         calendarView.appearance.headerTitleFont = UIFont.subTitle()
-        calendarView.appearance.headerTitleColor = UIColor.init(hexCode: "#FAFAFA")
+        calendarView.appearance.headerTitleColor = UIColor.init(hexCode: CustomColor.white)
         // Weekday 폰트 설정
         calendarView.appearance.weekdayFont = UIFont.caption1()
-        calendarView.appearance.weekdayTextColor = UIColor.init(hexCode: "#FAFAFA")
+        calendarView.appearance.weekdayTextColor = UIColor.init(hexCode: CustomColor.white)
         
         // 각각의 일(날짜) 폰트 설정 (ex. 1 2 3 4 5 6 ...)
         calendarView.appearance.titleFont = UIFont.caption1()
@@ -167,10 +167,10 @@ class CalendarVC: UIViewController, FSCalendarDelegate, FSCalendarDataSource, UI
         
         
         //오늘
-        calendarView.appearance.todayColor = UIColor.init(hexCode: "#BDBDBD")
-        calendarView.appearance.titleTodayColor = UIColor.init(hexCode: "#111111")
+        calendarView.appearance.todayColor = UIColor.init(hexCode: CustomColor.white_gray)
+        calendarView.appearance.titleTodayColor = UIColor.init(hexCode: CustomColor.black)
         //selcted
-        calendarView.appearance.selectionColor = UIColor.init(hexCode: "#54ADFF")
+        calendarView.appearance.selectionColor = UIColor.init(hexCode: CustomColor.Category.EXERCISE)
         
         //        calendarView.appearance.eventDefaultColor = .red
         
@@ -271,7 +271,7 @@ extension CalendarVC: UICollectionViewDelegateFlowLayout {
             if collectionView == tagCollectionView {
                 customLabel.text = dayList[indexPath.row]
                 customLabel.font = UIFont.body3()
-                customLabel.textColor = UIColor.init(hexCode: "#FFFFFF")
+                customLabel.textColor = UIColor.init(hexCode: CustomColor.clear_white)
             }
             customLabel.sizeToFit()
             return customLabel

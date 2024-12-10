@@ -7,6 +7,10 @@
 
 import UIKit
 
+let categoryDict = ["EXERCISE" : "운동",
+                    "READING" : "독서",
+                    "DEVELOPMENT" : "자기계발"]
+
 struct CustomColor {
     // Basic Color
     static let clear_white = "#FFFFFF"

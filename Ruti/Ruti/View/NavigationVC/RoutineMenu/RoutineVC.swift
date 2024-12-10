@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 // 첫 화면
 struct RoutineData {
     let category: Int
@@ -16,7 +17,7 @@ struct RoutineData {
 
 struct Routine {
     let routineCategories: String
-    let routineContent: String
+    let routineContent: String?
     let routineAlarmTime: String
     let routineStatus: String
     let routineId: Int

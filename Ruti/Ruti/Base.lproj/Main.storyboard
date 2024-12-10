@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kEh-Ys-avK">
     <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
@@ -77,7 +77,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-840" y="-182"/>
+            <point key="canvasLocation" x="-1363" y="-182"/>
         </scene>
         <!--Routine DetailVC-->
         <scene sceneID="eaE-b2-0KH">
@@ -285,21 +285,6 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lG8-nJ-cvU">
-                                <rect key="frame" x="24" y="693" width="345" height="56"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="7pG-01-Nhv"/>
-                                    <constraint firstAttribute="width" constant="345" id="vql-3b-rTk"/>
-                                </constraints>
-                                <color key="tintColor" red="0.32941176470588235" green="0.67843137254901964" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
-                                <connections>
-                                    <action selector="plusBtn:" destination="1Nj-it-79v" eventType="touchUpInside" id="fIx-oE-cqr"/>
-                                    <segue destination="QHy-dO-udP" kind="show" id="YIt-iA-x2b"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ff6-fW-NNr">
                                 <rect key="frame" x="24" y="313" width="345" height="36"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -365,10 +350,10 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ILp-wR-za5">
-                                <rect key="frame" x="24" y="349" width="345" height="340"/>
+                                <rect key="frame" x="24" y="349" width="345" height="420"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="oa0-xS-Hlf">
-                                        <rect key="frame" x="102.00000000000001" y="123.66666666666669" width="141.33333333333337" height="93"/>
+                                        <rect key="frame" x="102.00000000000001" y="163.66666666666663" width="141.33333333333337" height="93"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아직 루틴이 없어요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9M-C2-YgC">
                                                 <rect key="frame" x="0.0" y="0.0" width="141.33333333333334" height="20.333333333333332"/>
@@ -377,13 +362,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="루틴을 생성하고" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsF-fk-M7l">
-                                                <rect key="frame" x="0.0" y="36.333333333333314" width="141.33333333333334" height="20.333333333333329"/>
+                                                <rect key="frame" x="0.0" y="36.333333333333371" width="141.33333333333334" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일정을 시작해 보세요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbD-K0-Uix">
-                                                <rect key="frame" x="0.0" y="72.666666666666686" width="141.33333333333334" height="20.333333333333329"/>
+                                                <rect key="frame" x="0.0" y="72.666666666666742" width="141.33333333333334" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -398,7 +383,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mRY-Fr-E21">
-                                <rect key="frame" x="24" y="369" width="349" height="324"/>
+                                <rect key="frame" x="24" y="369" width="349" height="400"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="RoutineCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RoutineCell" id="Zqj-jw-upQ" customClass="RoutineCell" customModule="Ruti" customModuleProvider="target">
@@ -416,27 +401,42 @@
                                     <outlet property="delegate" destination="1Nj-it-79v" id="yTh-CI-y2x"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lG8-nJ-cvU">
+                                <rect key="frame" x="24" y="693" width="345" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="7pG-01-Nhv"/>
+                                    <constraint firstAttribute="width" constant="345" id="vql-3b-rTk"/>
+                                </constraints>
+                                <color key="tintColor" red="0.32941176470588235" green="0.67843137254901964" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="plusBtn:" destination="1Nj-it-79v" eventType="touchUpInside" id="fIx-oE-cqr"/>
+                                    <segue destination="QHy-dO-udP" kind="show" id="YIt-iA-x2b"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1jJ-bH-Lmm"/>
                         <color key="backgroundColor" red="0.13725490196078433" green="0.13725490196078433" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ff6-fW-NNr" firstAttribute="leading" secondItem="1jJ-bH-Lmm" secondAttribute="leading" constant="24" id="04S-Od-evD"/>
                             <constraint firstItem="mRY-Fr-E21" firstAttribute="top" secondItem="ff6-fW-NNr" secondAttribute="bottom" constant="20" id="6u4-Ij-wcG"/>
-                            <constraint firstItem="ILp-wR-za5" firstAttribute="bottom" secondItem="lG8-nJ-cvU" secondAttribute="bottom" constant="-60" id="BOU-iu-70L"/>
+                            <constraint firstItem="ILp-wR-za5" firstAttribute="bottom" secondItem="lG8-nJ-cvU" secondAttribute="bottom" constant="20" id="BOU-iu-70L"/>
                             <constraint firstItem="1jJ-bH-Lmm" firstAttribute="trailing" secondItem="ILp-wR-za5" secondAttribute="trailing" constant="24" id="BY8-5a-YYX"/>
                             <constraint firstItem="1jJ-bH-Lmm" firstAttribute="trailing" secondItem="mRY-Fr-E21" secondAttribute="trailing" constant="20" id="C8e-A9-yjh"/>
                             <constraint firstItem="lG8-nJ-cvU" firstAttribute="leading" secondItem="1jJ-bH-Lmm" secondAttribute="leading" constant="24" id="Ep1-WL-IJ5"/>
                             <constraint firstItem="cg6-nF-0ce" firstAttribute="top" secondItem="1jJ-bH-Lmm" secondAttribute="top" constant="5" id="QkZ-Cv-Ww3"/>
-                            <constraint firstItem="1jJ-bH-Lmm" firstAttribute="bottom" secondItem="lG8-nJ-cvU" secondAttribute="bottom" constant="20" id="TAm-dv-5aN"/>
                             <constraint firstItem="mRY-Fr-E21" firstAttribute="leading" secondItem="1jJ-bH-Lmm" secondAttribute="leading" constant="24" id="TH9-1o-FGf"/>
                             <constraint firstItem="ff6-fW-NNr" firstAttribute="top" secondItem="W4m-0Q-stE" secondAttribute="bottom" constant="56" id="WA8-J9-LTl"/>
+                            <constraint firstItem="1jJ-bH-Lmm" firstAttribute="bottom" secondItem="ILp-wR-za5" secondAttribute="bottom" id="XG3-bn-VtM"/>
                             <constraint firstItem="W4m-0Q-stE" firstAttribute="top" secondItem="cg6-nF-0ce" secondAttribute="bottom" constant="40" id="ckG-X7-1D0"/>
                             <constraint firstItem="1jJ-bH-Lmm" firstAttribute="trailing" secondItem="lG8-nJ-cvU" secondAttribute="trailing" constant="24" id="gSh-va-Qj9"/>
                             <constraint firstItem="W4m-0Q-stE" firstAttribute="leading" secondItem="1jJ-bH-Lmm" secondAttribute="leading" constant="24" id="m72-vY-Hgv"/>
                             <constraint firstItem="cg6-nF-0ce" firstAttribute="leading" secondItem="1jJ-bH-Lmm" secondAttribute="leading" constant="24" id="mfu-dy-fzz"/>
                             <constraint firstItem="ILp-wR-za5" firstAttribute="leading" secondItem="1jJ-bH-Lmm" secondAttribute="leading" constant="24" id="qDi-zg-42Z"/>
+                            <constraint firstItem="mRY-Fr-E21" firstAttribute="bottom" secondItem="ILp-wR-za5" secondAttribute="bottom" id="sEs-fe-yV0"/>
                             <constraint firstItem="ILp-wR-za5" firstAttribute="top" secondItem="ff6-fW-NNr" secondAttribute="bottom" id="xfo-bf-iDp"/>
-                            <constraint firstItem="lG8-nJ-cvU" firstAttribute="top" secondItem="mRY-Fr-E21" secondAttribute="bottom" id="y1z-wU-GUk"/>
                             <constraint firstItem="1jJ-bH-Lmm" firstAttribute="trailing" secondItem="ff6-fW-NNr" secondAttribute="trailing" constant="24" id="zUh-IN-8zD"/>
                         </constraints>
                     </view>
@@ -916,6 +916,7 @@
                                         <state key="normal" title="네, 지금 시작할게요!"/>
                                         <buttonConfiguration key="configuration" style="plain" title="네, 지금 시작할게요!"/>
                                         <connections>
+                                            <action selector="startBtnAction:" destination="tb0-2L-mlr" eventType="touchUpInside" id="e6B-PZ-uTp"/>
                                             <segue destination="PA4-7s-cjC" kind="push" id="Hj0-LF-8fP"/>
                                         </connections>
                                     </button>
@@ -930,6 +931,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="잠시 미룰게요"/>
                                         <connections>
+                                            <action selector="pendingBtnAction:" destination="tb0-2L-mlr" eventType="touchUpInside" id="sLQ-e2-P6g"/>
                                             <action selector="test:" destination="tb0-2L-mlr" eventType="touchUpInside" id="oPj-WH-X5Z"/>
                                         </connections>
                                     </button>
@@ -943,6 +945,9 @@
                                         <color key="tintColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="오늘은 어려워요"/>
+                                        <connections>
+                                            <action selector="stopBtnAction:" destination="tb0-2L-mlr" eventType="touchUpInside" id="a9Q-o6-0qH"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -1041,6 +1046,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="다음"/>
                                 <connections>
+                                    <action selector="registerRoutineTitle:" destination="4i6-BK-OaO" eventType="touchUpInside" id="XfP-eH-ha0"/>
                                     <segue destination="15u-Bw-Q0G" kind="push" id="adU-F0-LMU"/>
                                 </connections>
                             </button>
@@ -1077,13 +1083,17 @@
                                     </imageView>
                                 </subviews>
                             </stackView>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mhL-6F-Iv2">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mhL-6F-Iv2">
                                 <rect key="frame" x="24" y="364.33333333333331" width="345" height="52"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="dSj-dL-Hzf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="4i6-BK-OaO" id="gEI-Ff-C15"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MEc-yw-Mr2"/>
@@ -1183,6 +1193,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="다음"/>
                                 <connections>
+                                    <action selector="registerRoutineTime:" destination="15u-Bw-Q0G" eventType="touchUpInside" id="GKX-YK-Ctz"/>
                                     <segue destination="bV3-Ff-J0u" kind="push" id="MXG-hF-31W"/>
                                 </connections>
                             </button>
@@ -1377,7 +1388,6 @@
                                 <buttonConfiguration key="configuration" style="plain" title="다음"/>
                                 <connections>
                                     <action selector="rutineRegistAction:" destination="bV3-Ff-J0u" eventType="touchUpInside" id="CAf-RC-Ll0"/>
-                                    <segue destination="C81-uv-0Tx" kind="push" id="o41-qD-ozR"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="0Uj-l3-pPx">
@@ -1465,6 +1475,7 @@
                         <outlet property="subtitle" destination="Vj0-x3-PwV" id="IuL-7x-I1J"/>
                         <outlet property="timePicker" destination="dpo-qu-sM0" id="bWk-1O-Snf"/>
                         <outlet property="view1" destination="kDL-mE-Num" id="tRR-ye-GpB"/>
+                        <segue destination="C81-uv-0Tx" kind="show" identifier="registerComplete" id="PSJ-Lz-FdX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EF0-bw-N19" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
