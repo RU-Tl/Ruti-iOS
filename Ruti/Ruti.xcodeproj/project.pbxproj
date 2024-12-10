@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		680FAD652BFF72A800BC95EF /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680FAD642BFF72A800BC95EF /* TagCell.swift */; };
+		6834FDE62C15DF430047CD06 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6834FDE52C15DF430047CD06 /* MainTabBarViewController.swift */; };
+		6834FDE82C15DF7E0047CD06 /* StoryboardInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6834FDE72C15DF7E0047CD06 /* StoryboardInitializable.swift */; };
+		6834FDEA2C15ED380047CD06 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6834FDE92C15ED380047CD06 /* Routine.swift */; };
 		683BD1F12BFB2C9E000266D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683BD1F02BFB2C9E000266D5 /* AppDelegate.swift */; };
 		683BD1F32BFB2C9E000266D5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683BD1F22BFB2C9E000266D5 /* SceneDelegate.swift */; };
 		683BD1F52BFB2C9E000266D5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683BD1F42BFB2C9E000266D5 /* ViewController.swift */; };
@@ -20,7 +23,6 @@
 		687009BB2C0032A900EF5C33 /* RutineStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687009BA2C0032A900EF5C33 /* RutineStartVC.swift */; };
 		687009BD2C00357100EF5C33 /* PushNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687009BC2C00357100EF5C33 /* PushNotificationHelper.swift */; };
 		687009CF2C00619300EF5C33 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 687009CE2C00619300EF5C33 /* FSCalendar */; };
-		687009D32C00675400EF5C33 /* FSPagerView in Frameworks */ = {isa = PBXBuildFile; productRef = 687009D22C00675400EF5C33 /* FSPagerView */; };
 		687009D62C0067CA00EF5C33 /* RankingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687009D52C0067CA00EF5C33 /* RankingVC.swift */; };
 		687009D82C006FBC00EF5C33 /* RoutineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687009D72C006FBC00EF5C33 /* RoutineVC.swift */; };
 		687009DA2C006FC900EF5C33 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687009D92C006FC900EF5C33 /* CalendarVC.swift */; };
@@ -28,6 +30,7 @@
 		687009DF2C007A8F00EF5C33 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 687009DE2C007A8F00EF5C33 /* SnapKit */; };
 		687009E62C008F3300EF5C33 /* RankingTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 687009E52C008F3300EF5C33 /* RankingTableCell.xib */; };
 		687009E72C008F3300EF5C33 /* RankingTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687009E42C008F3300EF5C33 /* RankingTableCell.swift */; };
+		687F4C212C19346B00ADE810 /* CustomUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F4C202C19346B00ADE810 /* CustomUI.swift */; };
 		688125932BFF23A400C75B0B /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688125922BFF23A400C75B0B /* SignInViewController.swift */; };
 		688125952BFF2BCD00C75B0B /* RutineRegistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688125942BFF2BCD00C75B0B /* RutineRegistViewController.swift */; };
 		688125982BFF3CD400C75B0B /* RutineRegistStep2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688125972BFF3CD400C75B0B /* RutineRegistStep2VC.swift */; };
@@ -35,6 +38,7 @@
 		6881259C2BFF3E1200C75B0B /* RutineRegistStep4VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6881259B2BFF3E1200C75B0B /* RutineRegistStep4VC.swift */; };
 		6881259E2BFF3E2000C75B0B /* RutineRegistStep5VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6881259D2BFF3E2000C75B0B /* RutineRegistStep5VC.swift */; };
 		688125A02BFF48B700C75B0B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6881259F2BFF48B700C75B0B /* CategoryTableViewCell.swift */; };
+		6886BC032CABFAED007BDEE9 /* RotineRegistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6886BC022CABFAEA007BDEE9 /* RotineRegistViewModel.swift */; };
 		688D42A82C00E0E800F7EE0E /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688D42A72C00E0E800F7EE0E /* PopupVC.swift */; };
 		688D42AB2C01A10A00F7EE0E /* DailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688D42AA2C01A10A00F7EE0E /* DailyCell.swift */; };
 		6894898F2C01AAE200640EF1 /* RoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894898D2C01AAE200640EF1 /* RoutineCell.swift */; };
@@ -77,6 +81,8 @@
 		689721E72BFCED8F00BF88EA /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 689721E62BFCED8F00BF88EA /* KakaoSDKAuth */; };
 		689721E92BFCED8F00BF88EA /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 689721E82BFCED8F00BF88EA /* KakaoSDKCommon */; };
 		689721EB2BFCED8F00BF88EA /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 689721EA2BFCED8F00BF88EA /* KakaoSDKUser */; };
+		68EE0B062C606EB700A190C1 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EE0B052C606EB700A190C1 /* AlertView.swift */; };
+		68EF35702C16928000AEB25B /* RankUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EF356F2C16928000AEB25B /* RankUser.swift */; };
 		68FD36F32C021ECA002EC3D8 /* RutineStartConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FD36F22C021ECA002EC3D8 /* RutineStartConfirmVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +105,9 @@
 
 /* Begin PBXFileReference section */
 		680FAD642BFF72A800BC95EF /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
+		6834FDE52C15DF430047CD06 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		6834FDE72C15DF7E0047CD06 /* StoryboardInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInitializable.swift; sourceTree = "<group>"; };
+		6834FDE92C15ED380047CD06 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
 		683BD1ED2BFB2C9E000266D5 /* Ruti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ruti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		683BD1F02BFB2C9E000266D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		683BD1F22BFB2C9E000266D5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,14 +123,13 @@
 		683BD2132BFB2CA2000266D5 /* RutiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutiUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		687009BA2C0032A900EF5C33 /* RutineStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutineStartVC.swift; sourceTree = "<group>"; };
 		687009BC2C00357100EF5C33 /* PushNotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHelper.swift; sourceTree = "<group>"; };
-		687009D02C0063AA00EF5C33 /* FSPagerView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FSPagerView; path = Carthage/Checkouts/FSPagerView; sourceTree = "<group>"; };
-		687009D12C0066E900EF5C33 /* FSPagerView-master */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "FSPagerView-master"; path = "../../../../Downloads/FSPagerView-master"; sourceTree = "<group>"; };
 		687009D52C0067CA00EF5C33 /* RankingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingVC.swift; sourceTree = "<group>"; };
 		687009D72C006FBC00EF5C33 /* RoutineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineVC.swift; sourceTree = "<group>"; };
 		687009D92C006FC900EF5C33 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		687009DB2C006FD900EF5C33 /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		687009E42C008F3300EF5C33 /* RankingTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableCell.swift; sourceTree = "<group>"; };
 		687009E52C008F3300EF5C33 /* RankingTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankingTableCell.xib; sourceTree = "<group>"; };
+		687F4C202C19346B00ADE810 /* CustomUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUI.swift; sourceTree = "<group>"; };
 		688125922BFF23A400C75B0B /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		688125942BFF2BCD00C75B0B /* RutineRegistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutineRegistViewController.swift; sourceTree = "<group>"; };
 		688125972BFF3CD400C75B0B /* RutineRegistStep2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutineRegistStep2VC.swift; sourceTree = "<group>"; };
@@ -129,6 +137,7 @@
 		6881259B2BFF3E1200C75B0B /* RutineRegistStep4VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutineRegistStep4VC.swift; sourceTree = "<group>"; };
 		6881259D2BFF3E2000C75B0B /* RutineRegistStep5VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutineRegistStep5VC.swift; sourceTree = "<group>"; };
 		6881259F2BFF48B700C75B0B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		6886BC022CABFAEA007BDEE9 /* RotineRegistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotineRegistViewModel.swift; sourceTree = "<group>"; };
 		688D42A72C00E0E800F7EE0E /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		688D42AA2C01A10A00F7EE0E /* DailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCell.swift; sourceTree = "<group>"; };
 		6894898D2C01AAE200640EF1 /* RoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCell.swift; sourceTree = "<group>"; };
@@ -168,6 +177,8 @@
 		689494E82BFDB1BD001E3B94 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		689494EB2BFDB415001E3B94 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		689494ED2BFDB45E001E3B94 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		68EE0B052C606EB700A190C1 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		68EF356F2C16928000AEB25B /* RankUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankUser.swift; sourceTree = "<group>"; };
 		68FD36F22C021ECA002EC3D8 /* RutineStartConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RutineStartConfirmVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,7 +189,6 @@
 			files = (
 				689721E92BFCED8F00BF88EA /* KakaoSDKCommon in Frameworks */,
 				687009CF2C00619300EF5C33 /* FSCalendar in Frameworks */,
-				687009D32C00675400EF5C33 /* FSPagerView in Frameworks */,
 				687009DF2C007A8F00EF5C33 /* SnapKit in Frameworks */,
 				689721E72BFCED8F00BF88EA /* KakaoSDKAuth in Frameworks */,
 				689721EB2BFCED8F00BF88EA /* KakaoSDKUser in Frameworks */,
@@ -227,9 +237,9 @@
 		683BD1EF2BFB2C9E000266D5 /* Ruti */ = {
 			isa = PBXGroup;
 			children = (
-				687009D12C0066E900EF5C33 /* FSPagerView-master */,
-				689494EA2BFDB405001E3B94 /* Model */,
+				687F4C202C19346B00ADE810 /* CustomUI.swift */,
 				689494E82BFDB1BD001E3B94 /* Const.swift */,
+				689494EA2BFDB405001E3B94 /* Model */,
 				689494992BFDAE3E001E3B94 /* Service */,
 				689494982BFDAE19001E3B94 /* View */,
 				683BD1F02BFB2C9E000266D5 /* AppDelegate.swift */,
@@ -260,6 +270,26 @@
 			path = RutiUITests;
 			sourceTree = "<group>";
 		};
+		684B66BC2C91A3F500A52F44 /* PushNotification */ = {
+			isa = PBXGroup;
+			children = (
+				687009BC2C00357100EF5C33 /* PushNotificationHelper.swift */,
+			);
+			path = PushNotification;
+			sourceTree = "<group>";
+		};
+		684B66BD2C91A40000A52F44 /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				6894949A2BFDAE62001E3B94 /* APIRequest.swift */,
+				6894949E2BFDAE85001E3B94 /* APIResponse.swift */,
+				689494A02BFDAEA1001E3B94 /* APIError.swift */,
+				689494A42BFDAED0001E3B94 /* APIService.swift */,
+				689494E62BFDB00A001E3B94 /* APIConfig.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
 		687009B92C00327500EF5C33 /* RutineAlarm */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +302,8 @@
 		687009D42C00679600EF5C33 /* NavigationVC */ = {
 			isa = PBXGroup;
 			children = (
+				6834FDE72C15DF7E0047CD06 /* StoryboardInitializable.swift */,
+				6834FDE52C15DF430047CD06 /* MainTabBarViewController.swift */,
 				688D42A92C01A0E500F7EE0E /* RoutineMenu */,
 				687009D52C0067CA00EF5C33 /* RankingVC.swift */,
 				687009D92C006FC900EF5C33 /* CalendarVC.swift */,
@@ -285,6 +317,7 @@
 		688125962BFF3CA800C75B0B /* RutineRegist */ = {
 			isa = PBXGroup;
 			children = (
+				6886BC022CABFAEA007BDEE9 /* RotineRegistViewModel.swift */,
 				688125942BFF2BCD00C75B0B /* RutineRegistViewController.swift */,
 				688125972BFF3CD400C75B0B /* RutineRegistStep2VC.swift */,
 				688125992BFF3DFD00C75B0B /* RutineRegistStep3VC.swift */,
@@ -317,6 +350,7 @@
 				688125962BFF3CA800C75B0B /* RutineRegist */,
 				689494ED2BFDB45E001E3B94 /* MainViewController.swift */,
 				688125922BFF23A400C75B0B /* SignInViewController.swift */,
+				68EE0B052C606EB700A190C1 /* AlertView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -324,12 +358,8 @@
 		689494992BFDAE3E001E3B94 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				6894949A2BFDAE62001E3B94 /* APIRequest.swift */,
-				6894949E2BFDAE85001E3B94 /* APIResponse.swift */,
-				689494A02BFDAEA1001E3B94 /* APIError.swift */,
-				689494A42BFDAED0001E3B94 /* APIService.swift */,
-				689494E62BFDB00A001E3B94 /* APIConfig.swift */,
-				687009BC2C00357100EF5C33 /* PushNotificationHelper.swift */,
+				684B66BD2C91A40000A52F44 /* APIService */,
+				684B66BC2C91A3F500A52F44 /* PushNotification */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -459,6 +489,8 @@
 			isa = PBXGroup;
 			children = (
 				689494EB2BFDB415001E3B94 /* UserInfo.swift */,
+				6834FDE92C15ED380047CD06 /* Routine.swift */,
+				68EF356F2C16928000AEB25B /* RankUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -466,7 +498,6 @@
 		689721E52BFCED8F00BF88EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				687009D02C0063AA00EF5C33 /* FSPagerView */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -492,7 +523,6 @@
 				689721E82BFCED8F00BF88EA /* KakaoSDKCommon */,
 				689721EA2BFCED8F00BF88EA /* KakaoSDKUser */,
 				687009CE2C00619300EF5C33 /* FSCalendar */,
-				687009D22C00675400EF5C33 /* FSPagerView */,
 				687009DE2C007A8F00EF5C33 /* SnapKit */,
 			);
 			productName = Ruti;
@@ -571,6 +601,8 @@
 				689721E42BFCE95B00BF88EA /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				687009CD2C00616700EF5C33 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				687009DD2C007A5200EF5C33 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				6886BC012CABFAC2007BDEE9 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				68F781822D07D96800DD5F16 /* XCRemoteSwiftPackageReference "FSPagerView" */,
 			);
 			productRefGroup = 683BD1EE2BFB2C9E000266D5 /* Products */;
 			projectDirPath = "";
@@ -646,28 +678,35 @@
 				683BD1F52BFB2C9E000266D5 /* ViewController.swift in Sources */,
 				689494EE2BFDB45E001E3B94 /* MainViewController.swift in Sources */,
 				6881259C2BFF3E1200C75B0B /* RutineRegistStep4VC.swift in Sources */,
+				68EF35702C16928000AEB25B /* RankUser.swift in Sources */,
+				6834FDE62C15DF430047CD06 /* MainTabBarViewController.swift in Sources */,
 				680FAD652BFF72A800BC95EF /* TagCell.swift in Sources */,
 				689494A52BFDAED0001E3B94 /* APIService.swift in Sources */,
 				689494E72BFDB00A001E3B94 /* APIConfig.swift in Sources */,
 				683BD1F12BFB2C9E000266D5 /* AppDelegate.swift in Sources */,
 				6894949B2BFDAE62001E3B94 /* APIRequest.swift in Sources */,
+				687F4C212C19346B00ADE810 /* CustomUI.swift in Sources */,
 				683BD1F32BFB2C9E000266D5 /* SceneDelegate.swift in Sources */,
 				688D42AB2C01A10A00F7EE0E /* DailyCell.swift in Sources */,
 				6894949F2BFDAE85001E3B94 /* APIResponse.swift in Sources */,
 				688125932BFF23A400C75B0B /* SignInViewController.swift in Sources */,
 				688125952BFF2BCD00C75B0B /* RutineRegistViewController.swift in Sources */,
 				687009DC2C006FD900EF5C33 /* MyPageVC.swift in Sources */,
+				68EE0B062C606EB700A190C1 /* AlertView.swift in Sources */,
 				689494A12BFDAEA1001E3B94 /* APIError.swift in Sources */,
 				689494EC2BFDB415001E3B94 /* UserInfo.swift in Sources */,
 				6894898F2C01AAE200640EF1 /* RoutineCell.swift in Sources */,
 				687009DA2C006FC900EF5C33 /* CalendarVC.swift in Sources */,
 				687009BD2C00357100EF5C33 /* PushNotificationHelper.swift in Sources */,
+				6834FDEA2C15ED380047CD06 /* Routine.swift in Sources */,
 				68FD36F32C021ECA002EC3D8 /* RutineStartConfirmVC.swift in Sources */,
 				689494E92BFDB1BD001E3B94 /* Const.swift in Sources */,
+				6886BC032CABFAED007BDEE9 /* RotineRegistViewModel.swift in Sources */,
 				6881259A2BFF3DFD00C75B0B /* RutineRegistStep3VC.swift in Sources */,
 				687009E72C008F3300EF5C33 /* RankingTableCell.swift in Sources */,
 				687009BB2C0032A900EF5C33 /* RutineStartVC.swift in Sources */,
 				6881259E2BFF3E2000C75B0B /* RutineRegistStep5VC.swift in Sources */,
+				6834FDE82C15DF7E0047CD06 /* StoryboardInitializable.swift in Sources */,
 				688125982BFF3CD400C75B0B /* RutineRegistStep2VC.swift in Sources */,
 				688125A02BFF48B700C75B0B /* CategoryTableViewCell.swift in Sources */,
 				688D42A82C00E0E800F7EE0E /* PopupVC.swift in Sources */,
@@ -872,6 +911,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lxxyeon.Ruti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -900,6 +942,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lxxyeon.Ruti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1040,12 +1085,28 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		6886BC012CABFAC2007BDEE9 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 		689721E42BFCE95B00BF88EA /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.22.2;
+			};
+		};
+		68F781822D07D96800DD5F16 /* XCRemoteSwiftPackageReference "FSPagerView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSPagerView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1055,10 +1116,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 687009CD2C00616700EF5C33 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
-		};
-		687009D22C00675400EF5C33 /* FSPagerView */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FSPagerView;
 		};
 		687009DE2C007A8F00EF5C33 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
